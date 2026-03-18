@@ -1,0 +1,327 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&display=swap");
+
+:root {
+  --bg-color: #d1cfc7;
+  --paper-color: #fcfcfb;
+  --ink-color: #1a1a1a;
+  --accent-color: #e63946;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: "Manrope", sans-serif;
+  color: var(--ink-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  transition: background-color 1s ease;
+}
+
+.ambient-light {
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 60%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =========================================
+   门票容器（层级最高，保证盖住天空）
+   ========================================= */
+.exhibition-wrapper {
+  position: relative;
+  z-index: 9999; /* 门票永远在天空上面 */
+}
+
+/* =========================================
+   The Ticket Wrapper & Shadow Magic
+   ========================================= */
+.ticket-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 0px;
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+  transition: gap 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s ease;
+  cursor: grab;
+}
+
+/* 🔥 修复：hover 后永久保持裂开，不再回弹合上 */
+.ticket-container:hover,
+.ticket-container.hold-open {
+  gap: 24px;
+  transform: translateY(-5px) scale(1.02);
+}
+
+.ticket-container:active {
+  cursor: grabbing;
+}
+
+/* =========================================
+   Main Ticket Anatomy
+   ========================================= */
+.ticket-main {
+  position: relative;
+  width: 380px;
+  height: 270px;
+  background: var(--paper-color);
+  padding: 32px;
+  border-radius: 24px 36px 36px 24px;
+
+  @supports (corner-shape: bevel) {
+    corner-shape: squircle scoop scoop squircle;
+  }
+}
+
+.ticket-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.serial {
+  color: var(--accent-color);
+}
+
+.title {
+  font-family: "Cinzel", serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 16px 0 8px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.ticket-footer {
+  display: flex;
+  gap: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 16px;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.info-block .label {
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.info-block .value {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.perforation-line {
+  position: absolute;
+  right: -2px;
+  top: 40px;
+  bottom: 40px;
+  width: 4px;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 12px;
+  transition: opacity 0.3s ease;
+}
+
+.ticket-container:hover .perforation-line {
+  opacity: 0;
+}
+
+/* =========================================
+   The Tear-Away Stub
+   ========================================= */
+.ticket-stub {
+  position: relative;
+  width: 140px;
+  height: 270px;
+  background: var(--paper-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 32px 0;
+  border-radius: 36px 24px 24px 36px;
+
+  @supports (corner-shape: bevel) {
+    corner-shape: scoop squircle squircle scoop;
+  }
+}
+
+/* =========================================
+   The Holographic Star Seal 
+   ========================================= */
+.foil-seal {
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+
+  @supports (corner-shape: bevel) {
+    corner-shape: notch;
+  }
+
+  background: linear-gradient(
+    135deg,
+    #e0e0e0,
+    #ffffff 40%,
+    #a8a8a8 60%,
+    #e0e0e0
+  );
+  background-size: 200% 200%;
+  animation: shimmer 3s infinite linear;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Procedural Barcode - Fixed to draw vertically without transforms */
+.barcode {
+  width: 40px;
+  height: 90px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink-color),
+    var(--ink-color) 2px,
+    transparent 2px,
+    transparent 4px,
+    var(--ink-color) 4px,
+    var(--ink-color) 5px,
+    transparent 5px,
+    transparent 8px
+  );
+  opacity: 0.8;
+}
+
+.stub-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--accent-color);
+}
+
+/* =========================================
+   整体退场动画
+   ========================================= */
+.exhibition-wrapper.fade-out {
+  animation: allFadeUp 1.4s cubic-bezier(0.32, 1, 0.62, 1) forwards;
+  pointer-events: none;
+}
+@keyframes allFadeUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
+}
+
+body.fade-to-dark {
+  background-color: #1a1a1a;
+}
+
+/* =========================================
+   ✅ 天空 + 云朵样式（已完美整合）
+   ========================================= */
+.sky {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #63adf2;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+
+.sky.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 背景渐变 + 天空整体向上 */
+.sky.fade-to-light {
+  background: linear-gradient(to bottom, #63adf2 0%, #a8d8ff 100%);
+  transition: background 4s ease;
+}
+
+/* 文字：向上淡出 */
+.sky-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Cinzel", serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 1;
+  transition: all 4s cubic-bezier(0.2, 0.6, 0.2, 0.95);
+}
+.sky.fade-to-light .sky-center-text {
+  opacity: 0;
+  transform: translate(-50%, -140px);
+}
+
+/* 🔥 云朵：独立向上淡出，不影响飘动，不跳变 */
+.cloud svg {
+  transition: all 3.2s cubic-bezier(0.2, 0.6, 0.2, 0.95) !important;
+}
+.sky.fade-to-light .cloud svg {
+  transform: translateY(-140px) !important;
+  opacity: 0 !important;
+}

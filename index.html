@@ -10,6 +10,10 @@
 
   <!-- 票 结构 -->
   <div class="exhibition-wrapper">
+    <div class="ticket-guide">
+      <p>put your mouse on the ticket</p>
+      <div class="arrow-down"></div>
+    </div>
     <div class="ambient-light"></div>
 
     <div class="ticket-container" id="ticket">
@@ -51,16 +55,61 @@
     </div>
   </div>
 
-  <!-- 下一场景（你可以随便改成你想要的内容） -->
-  <!-- <div class="next-scene">
-    <h1>欢迎进入主会场</h1>
-  </div> -->
-
   <div class="sky">
     <!-- 中央欢迎文字 -->
     <div class="sky-center-text">Welcome to Our Little Town</div>
   </div>
 
+  <!-- 第三场景：星露谷（保留结构 + 可滚动 + 清空内容 + 纯色底部） -->
+<div class="final-scene">
+  <header class="d-flex justify-between align-center w-100">
+    <img class="logo-icon" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/logo.png" alt="logo">
+    <img class="menu-icon" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/menu.png" alt="menu icon">
+    <nav class="dropdown-nav closed">
+      <a href="#hero">
+        <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/home-icon.png" alt="home-icon">
+        Home
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 保留：Hero 村庄 -->
+    <div class="hero-bg"></div>
+    <section id="hero">
+      <div class="page-title">GO BUDDY</div>
+      <img class="hero-img" src="image/road.png" alt="flat image">
+    </section>
+
+    <!-- 保留结构 清空内容 -->
+    <section id="locations"></section>
+    <section class="border"></section>
+    <section id="map"></section>
+    <section id="villagers"></section>
+    <section id="contact"></section>
+
+    <!-- 保留：底部纯色框（原版样式） -->
+    <footer id="footerStyle" class="d-flex flex-wrap flex-col justify-center align-center">
+      <div class="d-flex justify-center align-center" style="gap:20px;">
+        <img class="title" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/title.png" alt="title">
+        <img class="logo-gif" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/ca_logo.gif" alt="concernedape logo">
+      </div>
+      <div class="d-flex flex-wrap flex-col justify-center align-center">
+        <div class="d-flex mb-20">
+          <a target="_blank" href="https://twitter.com/concernedape"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/twitter.png" alt="twitter"></a>
+          <a target="_blank" href="https://www.facebook.com/StardewValley"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/facebook.png" alt="facebook"></a>
+          <a target="_blank" href="https://www.reddit.com/r/StardewValley/"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/reddit.png" alt="reddit"></a>
+          <a target="_blank" href="https://www.stardewvalley.net/contact/"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/email.png" alt="mail"></a>
+          <a target="_blank" href="https://discordapp.com/invite/StardewValley"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/discord.png" alt="discord"></a>
+        </div>
+        <a href="#hero">
+          <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/up.png" alt="back to top">
+        </a>
+      </div>
+    </footer>
+  </main>
+</div>
+</div>
   <script src="js/main.js"></script>
 </body>
 </html>

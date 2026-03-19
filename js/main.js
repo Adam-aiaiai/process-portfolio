@@ -39,6 +39,12 @@ function initAutoExit() {
       // 8秒后 → 全部温柔变化
       setTimeout(() => {
         sky.classList.add("fade-to-light");
+
+        setTimeout(() => {
+            sky.style.opacity = 0;
+            const finalScene = document.querySelector(".final-scene");
+            finalScene.classList.add("show");
+          }, 500);
       }, 1000);
 
     }, 600);
@@ -99,6 +105,44 @@ style.textContent = `
 }
 `;
 document.head.appendChild(style);
+
+// =========================================
+// 星露谷官网菜单 + 表单功能（第三场景）
+// =========================================
+function initStardewUI() {
+  let toggleDropdown = document.querySelector('.menu-icon');
+  let dropdown = document.querySelector('.dropdown-nav');
+  let dropdownItems = document.querySelectorAll('.dropdown-nav a');
+  let form = document.getElementById('question');
+
+  if (!form || !toggleDropdown || !dropdown) return;
+
+  // 表单提交
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert("Your question has been submitted");
+  });
+
+  // 菜单切换
+  function checkState() {
+    dropdown.classList.toggle("closed");
+  }
+
+  toggleDropdown.addEventListener('click', checkState);
+
+  // 点击菜单关闭下拉框
+  dropdownItems.forEach((item) => {
+    item.addEventListener('click', checkState);
+  });
+}
+
+// 等待场景显示后再初始化
+const waitForScene = setInterval(() => {
+  if (document.querySelector(".final-scene.show")) {
+    initStardewUI();
+    clearInterval(waitForScene);
+  }
+}, 500);
 
 // =========================================
 // 页面加载后统一初始化

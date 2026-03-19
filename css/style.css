@@ -46,6 +46,42 @@ body {
   z-index: 9999; /* 门票永远在天空上面 */
 }
 
+/* ========= 门票指向提示（第一个场景专用） ========= */
+.ticket-guide {
+  position: absolute;
+  top: -120px; /* 距离门票的距离 */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 9999; /* 最上层 */
+  pointer-events: none; /* 不影响点击票 */
+}
+
+.ticket-guide p {
+  font-size: 22px;
+  font-family: "Cinzel", serif;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* 白色向下箭头 */
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 35px solid #ffffff;
+  margin: 0 auto;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+/* 箭头跳动动画（更显眼） */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
 /* =========================================
    The Ticket Wrapper & Shadow Magic
    ========================================= */
@@ -292,7 +328,7 @@ body.fade-to-dark {
 /* 背景渐变 + 天空整体向上 */
 .sky.fade-to-light {
   background: linear-gradient(to bottom, #63adf2 0%, #a8d8ff 100%);
-  transition: background 4s ease;
+  transition: background 2s ease;
 }
 
 /* 文字：向上淡出 */
@@ -310,7 +346,7 @@ body.fade-to-dark {
   white-space: nowrap;
   z-index: 10;
   opacity: 1;
-  transition: all 4s cubic-bezier(0.2, 0.6, 0.2, 0.95);
+  transition: all 2s cubic-bezier(0.2, 0.6, 0.2, 0.95);
 }
 .sky.fade-to-light .sky-center-text {
   opacity: 0;
@@ -319,9 +355,212 @@ body.fade-to-dark {
 
 /* 🔥 云朵：独立向上淡出，不影响飘动，不跳变 */
 .cloud svg {
-  transition: all 3.2s cubic-bezier(0.2, 0.6, 0.2, 0.95) !important;
+  transition: all 2s cubic-bezier(0.2, 0.6, 0.2, 0.95) !important;
 }
 .sky.fade-to-light .cloud svg {
   transform: translateY(-140px) !important;
   opacity: 0 !important;
 }
+/* =========================================
+   星露谷官网（原版结构 + 清空内容 + 纯色底部）
+========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
+
+.final-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background: #FAE58D;
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 2.5s ease;
+}
+.final-scene.show {
+  opacity: 1;
+  visibility: visible;
+  z-index: 100;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+h1, h2, button {
+    font-family: 'Kelly Slab', cursive;
+    color: #441600;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.7rem; }
+label, p, a, select, input, textarea, span, legend {
+    font-family: 'Kelly Slab', cursive;
+    font-size: .9rem;
+    color: #441600;
+}
+a { text-decoration: none; }
+.input-style {
+    width: 100%;
+    padding: 5px; 
+    background-color: #FEFBCC;
+    border: 3px outset #D57A05;
+    border-radius: 5px;
+    -webkit-box-shadow: -3px 3px 1px rgba(0, 0, 0, .2);
+            box-shadow: -3px 3px 1px rgba(0, 0, 0, .2);
+    margin-top: 3px;
+    margin-bottom: 15px;
+}
+input:focus, textarea:focus { outline: none !important; }
+.d-flex { display: -webkit-box; display: -ms-flexbox; display: flex; }
+.justify-center { -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
+.justify-between { -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
+.align-center { -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+.flex-col { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; }
+.flex-wrap { -ms-flex-wrap: wrap; flex-wrap: wrap; }
+.w-100 { width: 100%; }
+.mb-20 { margin-bottom: 20px; }
+
+body { background-color: #FAE58D; }
+main {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+/* Header */
+header {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    padding: 30px;
+}
+.logo-icon, .menu-icon {
+    height: 40px;
+    cursor: pointer;
+}
+.dropdown-nav {
+    position: fixed;
+    top: 77px;
+    right: 30px;
+    width: 200px;
+    height: 60px;
+    border: 10px solid #FAE58D;
+    border-radius: 10px;
+    border-image: url(https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/border.png) 20 stretch;
+    background-color: #FAE58D;
+    transition: height 300ms, opacity 300ms ease-in-out;
+    overflow: hidden;
+}
+.dropdown-nav img { width: 30px; margin-right: 15px; }
+.dropdown-nav a {
+    font-size: 1.1rem;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    text-shadow: 0px 2px 1px #d5864f;
+}
+.closed { height: 0; opacity: 0; visibility: hidden; }
+
+/* Hero */
+#hero {
+    position: relative;
+    width: 100vw;
+    height: 110vh;
+    min-height: 760px;
+}
+.hero-bg {
+    z-index: -1;
+    position: absolute;
+    background-image: url("../image/backgroud_improve.png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+}
+/* #hero .title {
+  font-family: "Cinzel", serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0 auto;
+} */
+#hero .hero-img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100% !important;       /* 全屏宽 */
+    height: auto !important;      /* 高度自动等比例 */
+    max-height: 100% !important; /* 允许图片占满容器高度 */
+    object-fit: contain !important; /* 完整显示图片，不裁剪 */
+    object-position: center bottom !important;
+}
+
+/* 空模块保留结构 */
+#locations, #villagers, #map, .border, #contact {
+    background-color: #EFDEB3;
+    width: 100vw;
+    height: 100px;
+}
+
+/* ========= 底部纯色框（原版样式 100% 还原）========= */
+#footerStyle {
+    background-color: #65b3ff;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#footerStyle > div > div > a > img { height: 30px; margin: 0 3px; }
+#footerStyle > div > img:nth-child(1) { width: 170px; }
+#footerStyle > div > img:nth-child(2) { width: 250px; }
+
+@media only screen and (min-width: 1015px) {
+    #footerStyle {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* .custom-title {
+    position: absolute;
+    top: 28vh !important;
+    left: 0 !important;
+    right: 0 !important;
+    text-align: center !important;
+    color: #ffffff !important;       
+    text-shadow: 0 4px 6px rgba(0,0,0,0.4) !important;
+    z-index: 2 !important;
+    font-family: "Cinzel", serif !important;
+    font-size: 2.8rem !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+    letter-spacing: -1px !important;
+    margin: 0 auto !important;
+} */
+
+.page-title {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 100% !important;
+  transform: translate(-50%, -70%) !important;
+
+  text-align: center !important; 
+  font-size: 100px !important;
+  font-family: "Cinzel", serif !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 15px rgba(0,0,0,0.8) !important;
+  z-index: 99999999 !important;
+  pointer-events: none !important;
+}
+
+/* 标题 + GIF 并排 */

@@ -4,7 +4,7 @@
 ## Date Started: 2026-03-08
 
 ### 1. Project Overview
-简要描述项目目标、背景
+面向新手跑者的趣味性应用软件
 
 ### 2. Initial Ideas & Research
-记录最初的想法、参考资料链接/截图
+专业跑步软件+养成系游戏

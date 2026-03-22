@@ -373,7 +373,7 @@ body.fade-to-dark {
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
-  background: #FAE58D;
+  background: #eddbad;
   z-index: 0;
   opacity: 0;
   visibility: hidden;
@@ -448,10 +448,10 @@ header {
     right: 30px;
     width: 200px;
     height: 60px;
-    border: 10px solid #FAE58D;
+    border: 10px solid #eddbad;
     border-radius: 10px;
     border-image: url(https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/border.png) 20 stretch;
-    background-color: #FAE58D;
+    background-color: #eddbad;
     transition: height 300ms, opacity 300ms ease-in-out;
     overflow: hidden;
 }
@@ -472,7 +472,7 @@ header {
     height: 110vh;
     min-height: 760px;
 }
-.hero-bg {
+/* .hero-bg {
     z-index: -1;
     position: absolute;
     background-image: url("../image/backgroud_improve.png");
@@ -481,6 +481,67 @@ header {
     width: 100%;
     height: 100vh;
     min-height: 700px;
+} */
+.hero-bg {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+}
+
+/* ------------------------------
+   核心：两张图叠在一起，同步滚动
+------------------------------ */
+.hero-bg::before,
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  /* 关键：超长距离单向滚动，永不复位 = 永不跳帧 */
+  animation: bgScroll 90s linear infinite;
+}
+
+/* 图 1 */
+.hero-bg::before {
+  background-image: url("../image/background_ani_1.png");
+  animation: bgScroll 300s linear infinite, flash1 0.5s step-end infinite;
+}
+
+/* 图 2 */
+.hero-bg::after {
+  background-image: url("../image/background_ani_2.png"); /* 改你的图2 */
+  animation: bgScroll 300s linear infinite, flash2 0.5s step-end infinite;
+}
+
+/* ------------------------------
+   ✅ 真正不跳帧的核心：
+   只往一个方向滚，不回头、不复原
+   超长距离，肉眼一辈子看不到尽头
+------------------------------ */
+@keyframes bgScroll {
+  0% { background-position: 0 center; }
+  100% { background-position: -20000px center; } /* 超大距离！ */
+}
+
+/* ------------------------------
+   闪烁切换（硬切，无渐变，不漏底）
+------------------------------ */
+@keyframes flash1 {
+  0%, 50%  { opacity: 1; }
+  50.1%, 100% { opacity: 0; }
+}
+@keyframes flash2 {
+  0%, 50%  { opacity: 0; }
+  50.1%, 100% { opacity: 1; }
 }
 /* #hero .title {
   font-family: "Cinzel", serif;
@@ -504,7 +565,7 @@ header {
 
 /* 空模块保留结构 */
 #locations, #villagers, #map, .border, #contact {
-    background-color: #EFDEB3;
+    background-color: #eddbad;
     width: 100vw;
     height: 100px;
 }

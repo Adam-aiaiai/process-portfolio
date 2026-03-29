@@ -23,31 +23,38 @@ function initAutoExit() {
   const ticket = document.getElementById("ticket");
   const wrapper = document.querySelector(".exhibition-wrapper");
   const sky = document.querySelector(".sky");
-
+  const finalScene = document.getElementById("finalScene");
+  
+  // 使用闭包变量，避免全局污染
   let isExiting = false;
-
-  ticket.addEventListener("mouseenter", () => {
+  
+  ticket.addEventListener('mouseenter', () => {
     if (isExiting) return;
     isExiting = true;
-
+    
     ticket.classList.add("hold-open");
-
+    
     setTimeout(() => {
       wrapper.classList.add("fade-out");
       sky.classList.add("show");
-
-      // 8秒后 → 全部温柔变化
+      
       setTimeout(() => {
         sky.classList.add("fade-to-light");
-
+        
         setTimeout(() => {
-            sky.style.opacity = 0;
-            const finalScene = document.querySelector(".final-scene");
+          sky.style.opacity = "0";
+          
+          setTimeout(() => {
             finalScene.classList.add("show");
-          }, 500);
+            // 🎯 在 final-scene 显示后初始化背景云朵
+            initBackgroundClouds();
+          }, 400);
+          
+        }, 800);
+        
       }, 1000);
-
-    }, 600);
+      
+    }, 200);
   });
 }
 function initClouds() {
@@ -153,4 +160,88 @@ window.onload = function () {
   setInterval(updateTime, 60000); // 每分钟更新时间
   initAutoExit();
   initClouds(); // ✅ 启动云朵
+  initBackgroundClouds(); // ✅ 新增：页面加载就生成背景蓝色天空上的白云
 };
+// 生成背景云朵（在图片后面飘动）
+function initBackgroundClouds() {
+  const container = document.getElementById('bgClouds');
+  if (!container) {
+    console.warn('bgClouds 容器不存在');
+    return;
+  }
+  
+  // 清除旧云朵
+  const oldClouds = container.querySelectorAll('.cloud');
+  oldClouds.forEach(cloud => cloud.remove());
+  
+  // 像素风云朵 SVG
+  const cloudTemplate = `
+  <div class="cloud">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64" shape-rendering="crispEdges">
+      <rect x="24" y="32" width="16" height="16" fill="#ffffff"/>
+      <rect x="40" y="32" width="16" height="16" fill="#ffffff"/>
+      <rect x="56" y="32" width="16" height="16" fill="#ffffff"/>
+      <rect x="72" y="32" width="16" height="16" fill="#ffffff"/>
+      <rect x="40" y="16" width="16" height="16" fill="#ffffff"/>
+      <rect x="56" y="16" width="16" height="16" fill="#ffffff"/>
+      <rect x="72" y="16" width="16" height="16" fill="#ffffff"/>
+      <rect x="32" y="40" width="8" height="8" fill="#f0f0f0"/>
+      <rect x="80" y="40" width="8" height="8" fill="#f0f0f0"/>
+    </svg>
+  </div>`;
+  
+  // 生成 8-12 朵云
+  const numClouds = Math.floor(Math.random() * 5) + 8;
+  
+  for (let i = 0; i < numClouds; i++) {
+    container.insertAdjacentHTML('beforeend', cloudTemplate);
+  }
+  
+  // 设置每朵云的随机属性
+  const clouds = document.querySelectorAll('#bgClouds .cloud');
+  clouds.forEach((cloud, index) => {
+    // 随机大小 0.4 - 1.2
+    const size = 0.4 + Math.random() * 0.8;
+    // 随机速度 40-100 秒（数值越大飘得越慢）
+    const speed = 40 + Math.random() * 60;
+    // 随机垂直位置 5% - 80%
+    const top = 5 + Math.random() * 75;
+    // 随机延迟 -40 到 0 秒
+    const delay = Math.random() * -40;
+    // 随机宽度 80-150px
+    const width = 80 + Math.random() * 70;
+    // 随机透明度 0.5-0.9
+    const opacity = 0.5 + Math.random() * 0.4;
+    
+    cloud.style.cssText = `
+      position: absolute;
+      width: ${width}px;
+      height: auto;
+      top: ${top}%;
+      left: 0;
+      transform: scale(${size});
+      opacity: ${opacity};
+      animation: cloudMove ${speed}s linear ${delay}s infinite;
+      z-index: ${Math.floor(Math.random() * 5) + 1};
+    `;
+  });
+  
+  console.log(`✅ 已生成 ${numClouds} 朵背景云朵`);
+}
+
+// 确保云朵动画已定义
+if (!document.querySelector('#cloudMoveStyle')) {
+  const style = document.createElement('style');
+  style.id = 'cloudMoveStyle';
+  style.textContent = `
+    @keyframes cloudMove {
+      0% {
+        transform: translateX(-200px) scale(var(--scale, 1));
+      }
+      100% {
+        transform: translateX(calc(100vw + 200px)) scale(var(--scale, 1));
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}

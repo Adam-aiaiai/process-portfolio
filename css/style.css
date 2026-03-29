@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
 
 :root {
   --bg-color: #d1cfc7;
@@ -38,23 +39,19 @@ body {
   pointer-events: none;
 }
 
-/* =========================================
-   门票容器（层级最高，保证盖住天空）
-   ========================================= */
 .exhibition-wrapper {
   position: relative;
-  z-index: 9999; /* 门票永远在天空上面 */
+  z-index: 9999;
 }
 
-/* ========= 门票指向提示（第一个场景专用） ========= */
 .ticket-guide {
   position: absolute;
-  top: -120px; /* 距离门票的距离 */
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  z-index: 9999; /* 最上层 */
-  pointer-events: none; /* 不影响点击票 */
+  z-index: 9999;
+  pointer-events: none;
 }
 
 .ticket-guide p {
@@ -65,7 +62,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* 白色向下箭头 */
 .arrow-down {
   width: 0;
   height: 0;
@@ -76,15 +72,11 @@ body {
   animation: bounce 1.2s infinite ease-in-out;
 }
 
-/* 箭头跳动动画（更显眼） */
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(10px); }
 }
 
-/* =========================================
-   The Ticket Wrapper & Shadow Magic
-   ========================================= */
 .ticket-container {
   position: relative;
   z-index: 10;
@@ -96,20 +88,16 @@ body {
   cursor: grab;
 }
 
-/* 🔥 修复：hover 后永久保持裂开，不再回弹合上 */
 .ticket-container:hover,
 .ticket-container.hold-open {
   gap: 24px;
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-5px scale(1.02));
 }
 
 .ticket-container:active {
   cursor: grabbing;
 }
 
-/* =========================================
-   Main Ticket Anatomy
-   ========================================= */
 .ticket-main {
   position: relative;
   width: 380px;
@@ -117,10 +105,6 @@ body {
   background: var(--paper-color);
   padding: 32px;
   border-radius: 24px 36px 36px 24px;
-
-  @supports (corner-shape: bevel) {
-    corner-shape: squircle scoop scoop squircle;
-  }
 }
 
 .ticket-content {
@@ -201,9 +185,6 @@ body {
   opacity: 0;
 }
 
-/* =========================================
-   The Tear-Away Stub
-   ========================================= */
 .ticket-stub {
   position: relative;
   width: 140px;
@@ -216,24 +197,12 @@ body {
   gap: 28px;
   padding: 32px 0;
   border-radius: 36px 24px 24px 36px;
-
-  @supports (corner-shape: bevel) {
-    corner-shape: scoop squircle squircle scoop;
-  }
 }
 
-/* =========================================
-   The Holographic Star Seal 
-   ========================================= */
 .foil-seal {
   min-width: 48px;
   min-height: 48px;
   border-radius: 50%;
-
-  @supports (corner-shape: bevel) {
-    corner-shape: notch;
-  }
-
   background: linear-gradient(
     135deg,
     #e0e0e0,
@@ -247,15 +216,10 @@ body {
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-/* Procedural Barcode - Fixed to draw vertically without transforms */
 .barcode {
   width: 40px;
   height: 90px;
@@ -282,22 +246,13 @@ body {
   color: var(--accent-color);
 }
 
-/* =========================================
-   整体退场动画
-   ========================================= */
 .exhibition-wrapper.fade-out {
   animation: allFadeUp 1.4s cubic-bezier(0.32, 1, 0.62, 1) forwards;
   pointer-events: none;
 }
 @keyframes allFadeUp {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-120px);
-  }
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-120px); }
 }
 
 body.fade-to-dark {
@@ -305,8 +260,8 @@ body.fade-to-dark {
 }
 
 /* =========================================
-   ✅ 天空 + 云朵样式（已完美整合）
-   ========================================= */
+   ✅ 天空 + 云朵【完整版】
+========================================= */
 .sky {
   width: 100vw;
   height: 100vh;
@@ -325,13 +280,11 @@ body.fade-to-dark {
   visibility: visible;
 }
 
-/* 背景渐变 + 天空整体向上 */
 .sky.fade-to-light {
   background: linear-gradient(to bottom, #63adf2 0%, #a8d8ff 100%);
   transition: background 2s ease;
 }
 
-/* 文字：向上淡出 */
 .sky-center-text {
   position: absolute;
   top: 50%;
@@ -353,7 +306,11 @@ body.fade-to-dark {
   transform: translate(-50%, -140px);
 }
 
-/* 🔥 云朵：独立向上淡出，不影响飘动，不跳变 */
+/* 云朵基础样式 + 飘动 */
+.cloud {
+  position: absolute;
+  z-index: 5;
+}
 .cloud svg {
   transition: all 2s cubic-bezier(0.2, 0.6, 0.2, 0.95) !important;
 }
@@ -361,11 +318,15 @@ body.fade-to-dark {
   transform: translateY(-140px) !important;
   opacity: 0 !important;
 }
-/* =========================================
-   星露谷官网（原版结构 + 清空内容 + 纯色底部）
-========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
 
+@keyframes cloudMove {
+  0% { transform: translateX(-150px); }
+  100% { transform: translateX(calc(100vw + 150px)); }
+}
+
+/* =========================================
+   最终场景 + 星露谷样式
+========================================= */
 .final-scene {
   position: fixed;
   top: 0;
@@ -385,12 +346,6 @@ body.fade-to-dark {
   z-index: 100;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-}
 h1, h2, button {
     font-family: 'Kelly Slab', cursive;
     color: #441600;
@@ -403,33 +358,14 @@ label, p, a, select, input, textarea, span, legend {
     color: #441600;
 }
 a { text-decoration: none; }
-.input-style {
-    width: 100%;
-    padding: 5px; 
-    background-color: #FEFBCC;
-    border: 3px outset #D57A05;
-    border-radius: 5px;
-    -webkit-box-shadow: -3px 3px 1px rgba(0, 0, 0, .2);
-            box-shadow: -3px 3px 1px rgba(0, 0, 0, .2);
-    margin-top: 3px;
-    margin-bottom: 15px;
-}
-input:focus, textarea:focus { outline: none !important; }
-.d-flex { display: -webkit-box; display: -ms-flexbox; display: flex; }
-.justify-center { -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
-.justify-between { -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
-.align-center { -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
-.flex-col { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; }
-.flex-wrap { -ms-flex-wrap: wrap; flex-wrap: wrap; }
-.w-100 { width: 100%; }
-.mb-20 { margin-bottom: 20px; }
 
-body { background-color: #FAE58D; }
-main {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: visible;
-}
+.d-flex { display: flex; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.w-100 { width: 100%; }
 
 /* Header */
 header {
@@ -465,37 +401,23 @@ header {
 }
 .closed { height: 0; opacity: 0; visibility: hidden; }
 
-/* Hero */
+/* Hero 全屏 */
 #hero {
     position: relative;
     width: 100vw;
-    height: 110vh;
+    height: 100vh;
     min-height: 760px;
 }
-/* .hero-bg {
-    z-index: -1;
-    position: absolute;
-    background-image: url("../image/backgroud_improve.png");
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;
-    min-height: 700px;
-} */
 .hero-bg {
-  z-index: -1;
+  z-index: 0;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100vh;
-  min-height: 700px;
+  height: 100%;
   overflow: hidden;
 }
 
-/* ------------------------------
-   核心：两张图叠在一起，同步滚动
------------------------------- */
 .hero-bg::before,
 .hero-bg::after {
   content: "";
@@ -506,35 +428,22 @@ header {
   height: 100%;
   background-size: auto 100%;
   background-repeat: repeat-x;
-  /* 关键：超长距离单向滚动，永不复位 = 永不跳帧 */
-  animation: bgScroll 90s linear infinite;
+  animation: bgScroll 300s linear infinite;
 }
 
-/* 图 1 */
 .hero-bg::before {
   background-image: url("../image/background_ani_1.png");
   animation: bgScroll 300s linear infinite, flash1 0.5s step-end infinite;
 }
-
-/* 图 2 */
 .hero-bg::after {
-  background-image: url("../image/background_ani_2.png"); /* 改你的图2 */
+  background-image: url("../image/background_ani_2.png");
   animation: bgScroll 300s linear infinite, flash2 0.5s step-end infinite;
 }
 
-/* ------------------------------
-   ✅ 真正不跳帧的核心：
-   只往一个方向滚，不回头、不复原
-   超长距离，肉眼一辈子看不到尽头
------------------------------- */
 @keyframes bgScroll {
   0% { background-position: 0 center; }
-  100% { background-position: -20000px center; } /* 超大距离！ */
+  100% { background-position: -20000px center; }
 }
-
-/* ------------------------------
-   闪烁切换（硬切，无渐变，不漏底）
------------------------------- */
 @keyframes flash1 {
   0%, 50%  { opacity: 1; }
   50.1%, 100% { opacity: 0; }
@@ -543,34 +452,43 @@ header {
   0%, 50%  { opacity: 0; }
   50.1%, 100% { opacity: 1; }
 }
-/* #hero .title {
-  font-family: "Cinzel", serif;
-  font-size: 2.8rem;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin: 0 auto;
-} */
+
+/* 🔥 全屏图片 */
 #hero .hero-img {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100% !important;       /* 全屏宽 */
-    height: auto !important;      /* 高度自动等比例 */
-    max-height: 100% !important; /* 允许图片占满容器高度 */
-    object-fit: contain !important; /* 完整显示图片，不裁剪 */
-    object-position: center bottom !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
 }
 
-/* 空模块保留结构 */
+/* 🔥 标题安全、不遮挡、居中 */
+.page-title {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 90px;
+  font-family: "Cinzel", serif;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0,0,0,0.8);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* 空模块 */
 #locations, #villagers, #map, .border, #contact {
     background-color: #eddbad;
     width: 100vw;
     height: 100px;
 }
 
-/* ========= 底部纯色框（原版样式 100% 还原）========= */
 #footerStyle {
     background-color: #65b3ff;
     padding: 30px 50px;
@@ -588,40 +506,181 @@ header {
         flex-direction: row;
         justify-content: space-between;
     }
+}/* ========== 云朵动画修复 ========== */
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
 }
 
-/* .custom-title {
-    position: absolute;
-    top: 28vh !important;
-    left: 0 !important;
-    right: 0 !important;
-    text-align: center !important;
-    color: #ffffff !important;       
-    text-shadow: 0 4px 6px rgba(0,0,0,0.4) !important;
-    z-index: 2 !important;
-    font-family: "Cinzel", serif !important;
-    font-size: 2.8rem !important;
-    line-height: 1 !important;
-    font-weight: 700 !important;
-    letter-spacing: -1px !important;
-    margin: 0 auto !important;
-} */
+.cloud {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  will-change: transform;
+}
 
-.page-title {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 100% !important;
-  transform: translate(-50%, -70%) !important;
+.cloud svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-  text-align: center !important; 
-  font-size: 100px !important;
-  font-family: "Cinzel", serif !important;
-  font-weight: 900 !important;
-  color: #ffffff !important;
-  text-shadow: 0 0 15px rgba(0,0,0,0.8) !important;
-  z-index: 99999999 !important;
+/* 确保云朵在天空场景中正确显示 */
+.sky {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sky .cloud {
+  animation: cloudMove 60s linear infinite;
+}
+
+/* 修复云朵初始位置，避免从屏幕外出现太快 */
+.sky .cloud {
+  transform: translateX(-150px);
+}
+/* =========================================
+   🌥️ 云朵动画完整修复
+========================================= */
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+.cloud {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.cloud svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 天空场景容器优化 */
+.sky {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sky .cloud {
+  animation: cloudMove 60s linear infinite;
+}
+
+/* 确保云朵在 fade-to-light 时正确淡出 */
+.sky.fade-to-light .cloud svg {
+  transition: all 1.5s ease-out;
+  transform: translateY(-100px) !important;
+  opacity: 0 !important;
+}
+
+/* 修复天空文字层级 */
+.sky-center-text {
+  z-index: 30;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+/* =========================================
+   🌥️ 背景云朵层 - 永远在图片后面
+========================================= */
+
+/* 背景云朵容器 */
+.bg-clouds {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;  /* 低层级 */
+  pointer-events: none;  /* 让云朵不干扰点击 */
+}
+
+/* 确保主要内容在云朵上面 */
+.hero-full,
+.portfolio-pixel,
+header,
+section {
+  position: relative;
+  z-index: 10;  /* 高于云朵 */
+}
+
+/* 云朵样式 */
+.bg-clouds .cloud {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(0.5px);  /* 轻微模糊，增加景深感 */
+  will-change: transform;
+  z-index: 1;
+}
+
+/* 云朵飘移动画 */
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+/* 强制全屏蓝色天空背景，优先级最高，绝对不会被遮挡 */
+.bg-sky {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: linear-gradient(to bottom, #63adf2 0%, #a8d8ff 100%) !important;
+  z-index: -9999 !important; /* 放到最最底层 */
   pointer-events: none !important;
 }
 
-/* 标题 + GIF 并排 */
+/* 背景云朵层 */
+.bg-clouds {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -9998 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+/* 强制页面原有背景变透明，露出天空 */
+body, html {
+  background-color: transparent !important;
+  background: transparent !important;
+  overflow-x: hidden !important;
+}
+
+/* 确保你的所有内容都在天空上面 */
+#app, .wrapper, .container, .exhibition-wrapper, .final-scene, header, main, section {
+  position: relative !important;
+  z-index: 10 !important;
+  background: transparent !important;
+}
+
+/* 复用原有bg-clouds样式，仅调整z-index确保在天空上、内容下 */
+.bg-clouds {
+  z-index: -1 !important; /* 天空(-2) < 云朵(-1) < 页面内容(≥0) */
+}
+
+/* 保证你原有页面的所有内容容器层级高于云朵，避免被遮挡 */
+.exhibition-wrapper, .final-scene, header, section {
+  position: relative;
+  z-index: 10 !important; /* 强制高于背景层 */
+}

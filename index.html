@@ -1,120 +1,1493 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>process portfolio</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>RunBuddy · Process Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&family=VT323&display=swap">
+  <style>
+    /* ========== Keep original pixel style core ========== */
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&display=swap");
+
+    :root {
+      --bg-color: #d1cfc7;
+      --paper-color: #fcfcfb;
+      --ink-color: #1a1a1a;
+      --accent-color: #e63946;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      font-family: "Manrope", sans-serif;
+      color: var(--ink-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      transition: background-color 1s ease;
+    }
+
+    .ambient-light {
+      position: absolute;
+      width: 50vw;
+      height: 50vh;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .exhibition-wrapper {
+      position: relative;
+      z-index: 9999;
+    }
+
+    .ticket-guide {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .ticket-guide p {
+      font-size: 22px;
+      font-family: "Cinzel", serif;
+      color: #ffffff;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 35px solid #ffffff;
+      margin: 0 auto;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    .ticket-container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      gap: 0px;
+      filter: drop-shadow(0 25px 45px rgba(0,0,0,0.15)) drop-shadow(0 4px 10px rgba(0,0,0,0.05));
+      transition: gap 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s ease;
+      cursor: grab;
+    }
+    .ticket-container:hover,
+    .ticket-container.hold-open {
+      gap: 24px;
+      transform: translateY(-5px) scale(1.02);
+    }
+    .ticket-container:active { cursor: grabbing; }
+
+    .ticket-main {
+      position: relative;
+      width: 380px;
+      height: 270px;
+      background: var(--paper-color);
+      padding: 32px;
+      border-radius: 24px 36px 36px 24px;
+    }
+    .ticket-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .serial { color: var(--accent-color); }
+    .title {
+      font-family: "Cinzel", serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin: 16px 0 8px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: #666;
+    }
+    .ticket-footer {
+      display: flex;
+      gap: 40px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding-top: 16px;
+    }
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .info-block .label {
+      font-size: 0.65rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .info-block .value {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .perforation-line {
+      position: absolute;
+      right: -2px;
+      top: 40px;
+      bottom: 40px;
+      width: 4px;
+      background-image: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.15) 50%);
+      background-size: 100% 12px;
+      transition: opacity 0.3s ease;
+    }
+    .ticket-container:hover .perforation-line { opacity: 0; }
+
+    .ticket-stub {
+      position: relative;
+      width: 140px;
+      height: 270px;
+      background: var(--paper-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 32px 0;
+      border-radius: 36px 24px 24px 36px;
+    }
+    .foil-seal {
+      min-width: 48px;
+      min-height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e0e0e0, #ffffff 40%, #a8a8a8 60%, #e0e0e0);
+      background-size: 200% 200%;
+      animation: shimmer 3s infinite linear;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .barcode {
+      width: 40px;
+      height: 90px;
+      background: repeating-linear-gradient(90deg, var(--ink-color), var(--ink-color) 2px, transparent 2px, transparent 4px, var(--ink-color) 4px, var(--ink-color) 5px, transparent 5px, transparent 8px);
+      opacity: 0.8;
+    }
+    .stub-text {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      color: var(--accent-color);
+    }
+
+    .exhibition-wrapper.fade-out {
+      animation: allFadeUp 1.4s cubic-bezier(0.32, 1, 0.62, 1) forwards;
+      pointer-events: none;
+    }
+    @keyframes allFadeUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-120px); }
+    }
+
+    /* ========= Keep pixel style sky + clouds ========= */
+    .sky {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      background: #63adf2;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 1;
+    }
+    .sky.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .sky.fade-to-light {
+      background: linear-gradient(to bottom, #63adf2 0%, #a8d8ff 100%);
+      transition: background 2s ease;
+    }
+    .sky-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Cinzel", serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 1;
+      transition: all 2s cubic-bezier(0.2, 0.6, 0.2, 0.95);
+    }
+    .sky.fade-to-light .sky-center-text {
+      opacity: 0;
+      transform: translate(-50%, -140px);
+    }
+    .cloud svg {
+      transition: all 2s cubic-bezier(0.2, 0.6, 0.2, 0.95) !important;
+    }
+    .sky.fade-to-light .cloud svg {
+      transform: translateY(-140px) !important;
+      opacity: 0 !important;
+    }
+    @keyframes cloudMove {
+      0% { transform: translateX(-150px); }
+      100% { transform: translateX(calc(100vw + 150px)); }
+    }
+
+    /* ========= Pixel style portfolio scene ========= */
+    .final-scene {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto;
+      background: #eddbad;
+      z-index: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 2.5s ease;
+    }
+    .final-scene.show {
+      opacity: 1;
+      visibility: visible;
+      z-index: 100;
+    }
+
+    /* ========== GO BUDDY FULLSCREEN HERO SECTION ========== */
+    .hero-full {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-full img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
+    .hero-full .title-overlay {
+      position: relative;
+      z-index: 3;
+      font-family: "Cinzel", serif;
+      font-size: 5rem;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    /* ── Pixel-art clouds (sit between sky bg -9999 and hero image 2) ── */
+    .hero-clouds {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* 8-bit cloud: each "pixel" is a 16×16 rect */
+    .hero-cloud {
+      position: absolute;
+      bottom: auto; /* use 'top' for low sky, 'bottom' for high sky */
+      /* scale controls size (1 = 128×64 logical px) */
+      transform-origin: center center;
+      will-change: transform;
+      filter: drop-shadow(0 4px 0 rgba(0,0,0,0.12));
+    }
+    .hero-cloud svg {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    /* Each tier of clouds gets its own speed / vertical band */
+    .hero-cloud-tier-a { animation: heroCloudMove var(--speed, 60s) linear infinite; }
+    .hero-cloud-tier-b { animation: heroCloudMove var(--speed, 80s) linear infinite; }
+    .hero-cloud-tier-c { animation: heroCloudMove var(--speed, 100s) linear infinite; }
+
+    @keyframes heroCloudMove {
+      from { transform: translateX(-220px) scale(var(--scale, 1)); }
+      to   { transform: translateX(calc(100vw + 220px)) scale(var(--scale, 1)); }
+    }
+
+    /* ========= Pixel content ========= */
+    .portfolio-pixel {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+    .pixel-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .pixel-header h1 {
+      font-family: "Cinzel", serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #441600;
+      text-shadow: 4px 4px 0 #d4a373;
+      letter-spacing: 2px;
+    }
+    .pixel-header p {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      color: #5e3a1c;
+      margin-top: 8px;
+    }
+    .pixel-card {
+      background: #fef8e7;
+      border: 4px solid #d4a373;
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .pixel-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 12px 12px 0 rgba(0,0,0,0.1);
+    }
+    .pixel-title {
+      font-family: "Cinzel", serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c4b2c;
+      border-left: 8px solid #e76f51;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    h2.pixel-title {
+      margin-top: 0;
+    }
+    .pixel-subtitle {
+      font-family: "Cinzel", serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #b55b2c;
+      margin: 1rem 0 0.8rem;
+    }
+    .why-text {
+      background: #fff2df;
+      padding: 1.2rem;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .gap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .paper-item, .product-item {
+      background: #f5efdf;
+      border: 2px solid #e2c7a5;
+      border-radius: 14px;
+      padding: 1rem;
+      font-size: 0.85rem;
+    }
+    .badge-good {
+      background: #2b6e4f30;
+      color: #1e5631;
+      font-weight: 600;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin: 4px 0;
+    }
+    .badge-miss {
+      background: #e76f5130;
+      color: #b13e1a;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin: 4px 0;
+    }
+    .persona-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .persona-card {
+      flex: 1;
+      background: #f7efdc;
+      border: 3px solid #cdb28b;
+      border-radius: 24px;
+      padding: 1.3rem;
+    }
+    .journey-pixel {
+      background: #e9dbbd;
+      border-radius: 20px;
+      padding: 1.2rem;
+      font-family: 'VT323', monospace;
+      font-size: 0.9rem;
+      border: 2px solid #c9aa71;
+    }
+    .requirements-list {
+      background: #2c4b2c20;
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      border-left: 6px solid #e76f51;
+    }
+    .evidence-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .evidence-item {
+      background: #dccfaa;
+      min-width: 110px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      font-family: 'VT323', monospace;
+      font-size: 0.75rem;
+      text-align: center;
+      border: 2px solid #b48c48;
+      box-shadow: 3px 3px 0 #9b6e3e;
+      padding: 8px;
+    }
+    .evidence-item img {
+      border-radius: 10px;
+    }
+    .sketch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .sketch-row img {
+      max-width: 100%;
+      height: auto;
+    }
+    .sketch-block {
+      background: #e2cf9a;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid #aa7e44;
+      image-rendering: pixelated;
+    }
+    .evidence-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .evidence-grid img {
+      max-width: 100%;
+      height: auto;
+    }
+    .alt-card {
+      background: #f3e9cf;
+      border-radius: 16px;
+      padding: 1rem;
+      flex: 1;
+      border: 2px solid #dba959;
+    }
+    .btn-pixel {
+      background: #b4652c;
+      color: white;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      font-family: "Cinzel", serif;
+      box-shadow: 3px 3px 0 #5e3a1c;
+      transition: 0.05s linear;
+    }
+    .btn-pixel:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #5e3a1c;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: #7a5a3a;
+      font-family: 'VT323', monospace;
+    }
+    hr {
+      margin: 1rem 0;
+      border-color: #ddb582;
+    }
+    @media (max-width: 700px) {
+      .pixel-card { padding: 1rem; }
+      .pixel-title { font-size: 1.4rem; }
+    }
+
+    /* GO BUDDY Styles */
+    .d-flex { display: flex; }
+    .justify-between { justify-content: space-between; }
+    .align-center { align-items: center; }
+    .w-100 { width: 100%; }
+    .logo-icon, .menu-icon { height: 40px; }
+    .dropdown-nav { display: flex; gap: 1rem; padding: 1rem; position: relative; z-index: 999; }
+    .dropdown-nav a { display: flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; font-weight: bold; }
+    .dropdown-nav img { width: 24px; height: 24px; }
+    section { margin: 40px 0; }
+    .border { height: 4px; background: #d4a373; border-radius: 2px; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+    .section-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem 0.65rem;
+      padding: 0.65rem 1rem;
+      background: linear-gradient(180deg, rgba(237, 219, 173, 0.98) 0%, rgba(237, 219, 173, 0.94) 100%);
+      border-bottom: 4px solid #d4a373;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .section-nav a {
+      font-family: "Cinzel", serif;
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+      font-weight: 700;
+      color: #441600;
+      text-decoration: none;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      border: 2px solid #b48c48;
+      background: #fef8e7;
+      transition: background 0.15s ease, transform 0.1s ease;
+      white-space: nowrap;
+    }
+    .section-nav a:hover {
+      background: #fff2df;
+      transform: translateY(-1px);
+    }
+    .section-nav a:focus-visible {
+      outline: 3px solid #e76f51;
+      outline-offset: 2px;
+    }
+    section.portfolio-section,
+    #hero {
+      scroll-margin-top: 5.5rem;
+    }
+    .contrib-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    .contrib-table th,
+    .contrib-table td {
+      border: 2px solid #c9aa71;
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      background: #f7efdc;
+    }
+    .contrib-table th {
+      background: #e2cf9a;
+      font-family: "Cinzel", serif;
+      font-size: 0.8rem;
+    }
+    .arch-placeholder {
+      margin-top: 1rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      background: #e9dbbd;
+      border: 3px dashed #b48c48;
+      border-radius: 16px;
+      font-family: 'VT323', monospace;
+      color: #5e3a1c;
+    }
+
+    /* ========== Scroll Progress Bar with Running Character ========== */
+    .scroll-progress-container {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .scroll-track {
+      width: 12px;
+      height: 60vh;
+      max-height: 500px;
+      background: linear-gradient(to bottom, #e2cf9a 0%, #d4a373 100%);
+      border-radius: 6px;
+      border: 3px solid #b48c48;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2), 3px 3px 0 #9b6e3e;
+    }
+
+    .scroll-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(to top, #e76f51 0%, #f4a261 100%);
+      border-radius: 0 0 3px 3px;
+      transition: height 0.1s ease-out;
+    }
+
+    .runner-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      transition: bottom 0.1s ease-out;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.3));
+      z-index: 10;
+    }
+
+    /* Pixel-art running character using CSS */
+    .runner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    /* Running animation keyframes */
+    @keyframes runFrame1 {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes runBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    .runner-container.running {
+      animation: runBounce 0.3s steps(1) infinite;
+    }
+
+    /* SVG runner sprite */
+    .runner-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Progress percentage label */
+    .progress-label {
+      font-family: 'VT323', monospace;
+      font-size: 14px;
+      color: #441600;
+      background: #fef8e7;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 2px solid #b48c48;
+      margin-top: 10px;
+      box-shadow: 2px 2px 0 #9b6e3e;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    /* Start label */
+    .track-start {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'VT323', monospace;
+      font-size: 10px;
+      color: #5e3a1c;
+    }
+
+    /* Finish label */
+    .track-end {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'VT323', monospace;
+      font-size: 10px;
+      color: #5e3a1c;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .scroll-progress-container {
+        left: 10px;
+      }
+      .scroll-track {
+        width: 10px;
+        height: 50vh;
+      }
+      .runner-container {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- 票 结构 -->
-  <div class="exhibition-wrapper">
-    <div class="ticket-guide">
-      <p>put your mouse on the ticket</p>
-      <div class="arrow-down"></div>
+<!-- Scroll Progress Bar with Running Character -->
+<div class="scroll-progress-container" id="scrollProgress">
+  <div class="scroll-track">
+    <div class="track-start">START</div>
+    <div class="scroll-fill" id="scrollFill"></div>
+    <div class="runner-container" id="runnerContainer">
+      <div class="runner" id="runner">
+        <!-- Frame 1: Left leg forward -->
+        <svg class="runner-svg" id="runnerSvg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Head -->
+          <rect x="6" y="0" width="4" height="2" fill="#ffd5b5"/>
+          <!-- Hair -->
+          <rect x="6" y="0" width="4" height="1" fill="#5e3a1c"/>
+          <!-- Body/Jersey -->
+          <rect x="5" y="2" width="6" height="4" fill="#e63946"/>
+          <rect x="6" y="2" width="4" height="1" fill="#ffd5b5"/>
+          <!-- Arms -->
+          <rect x="3" y="3" width="2" height="1" fill="#ffd5b5"/>
+          <rect x="11" y="2" width="2" height="1" fill="#ffd5b5"/>
+          <!-- Shorts -->
+          <rect x="5" y="6" width="6" height="1" fill="#2c4b2c"/>
+          <!-- Left leg forward (frame 1) -->
+          <rect x="5" y="7" width="2" height="2" fill="#ffd5b5"/>
+          <rect x="4" y="9" width="3" height="1" fill="#5e3a1c"/>
+          <!-- Right leg back (frame 1) -->
+          <rect x="9" y="7" width="2" height="1" fill="#ffd5b5"/>
+          <rect x="10" y="7" width="2" height="2" fill="#ffd5b5"/>
+          <rect x="11" y="9" width="3" height="1" fill="#5e3a1c"/>
+        </svg>
+      </div>
     </div>
-    <div class="ambient-light"></div>
+    <div class="track-end">FINISH</div>
+  </div>
+  <div class="progress-label" id="progressLabel">0%</div>
+</div>
 
-    <div class="ticket-container" id="ticket">
-        <article class="ticket-main">
-        <div class="ticket-content">
-            <header class="ticket-header">
-            <span class="eyebrow">A/W 2026</span>
-            <span class="serial">No. 004912</span>
-            </header>
-
-            <div class="ticket-body">
-            <h1 class="title">LITTLE<br />TOWN</h1>
-            <p class="subtitle">Exclusive Preview & Invitation</p>
-            </div>
-
-            <footer class="ticket-footer">
-            <div class="info-block">
-                <span class="label">Date</span>
-                <span class="value" id="today-date"></span>
-            </div>
-            <div class="info-block">
-                <span class="label">Time</span>
-                <span class="value" id="today-time"></span>
-            </div>
-            <div class="info-block">
-                <span class="label">Admit</span>
-                <span class="value">ONE</span>
-            </div>
-            </footer>
+<!-- 蓝色天空背景层（永久显示） -->
+<div class="bg-sky"></div>
+<!-- 背景云朵容器（飘在蓝色天空上） -->
+<div id="bgClouds" class="bg-clouds"></div>
+<div class="exhibition-wrapper">
+  <div class="ticket-guide">
+    <p>✨ put your mouse on the ticket ✨</p>
+    <div class="arrow-down"></div>
+  </div>
+  <div class="ambient-light"></div>
+  <div class="ticket-container" id="ticket">
+    <article class="ticket-main">
+      <div class="ticket-content">
+        <header class="ticket-header">
+          <span class="eyebrow">RUNBUDDY / A.W.</span>
+          <span class="serial">No. 0049</span>
+        </header>
+        <div class="ticket-body">
+          <h1 class="title">ACTIVE<br />LIFESTYLE</h1>
+          <p class="subtitle">gamified running companion · process portfolio</p>
         </div>
-        <div class="perforation-line"></div>
-        </article>
+        <footer class="ticket-footer">
+          <div class="info-block">
+            <span class="label">Date</span>
+            <span class="value" id="today-date"></span>
+          </div>
+          <div class="info-block">
+            <span class="label">Time</span>
+            <span class="value" id="today-time"></span>
+          </div>
+          <div class="info-block">
+            <span class="label">Admit</span>
+            <span class="value">ONE</span>
+          </div>
+        </footer>
+      </div>
+      <div class="perforation-line"></div>
+    </article>
+    <aside class="ticket-stub">
+      <div class="foil-seal"></div>
+      <div class="barcode"></div>
+      <p class="stub-text">RUN BUDDY</p>
+    </aside>
+  </div>
+</div>
 
-        <aside class="ticket-stub">
-        <div class="foil-seal"></div>
-        <div class="barcode"></div>
-        <p class="stub-text">VIP ACCESS</p>
-        </aside>
-    </div>
+<div class="sky" id="skyScene">
+  <div class="sky-center-text">🏃‍♂️ RUN FOR FUN 🏃‍♀️</div>
+</div>
+
+<!-- FINAL SCENE: FULLSCREEN IMAGE FIRST → PORTFOLIO -->
+<div class="final-scene" id="finalScene">
+  <div class="bg-clouds" id="bgCloudsFinal"></div>
+
+  <!-- ========== Sticky section navigation (anchor links) ========== -->
+  <nav class="section-nav" aria-label="Process portfolio sections">
+    <a href="#motivation-research">Motivation &amp; Research</a>
+    <a href="#user-requirements">User Requirements</a>
+    <a href="#ideation-alternatives">Ideation &amp; Alternatives</a>
+    <a href="#technical-implementation">Technical Implementation</a>
+    <a href="#evaluation-reflection">Evaluation &amp; Reflection</a>
+    <a href="#hero">Top</a>
+  </nav>
+
+  <!-- ========== FULL SCREEN PIXEL HERO IMAGE ========== -->
+  <div class="hero-full" id="hero">
+    <!-- Pixel-art clouds, below the image -->
+    <div class="hero-clouds" id="heroClouds" aria-hidden="true"></div>
+    <img src="image/road.png" alt="GO BUDDY Pixel Art">
+    <div class="title-overlay">GO BUDDY</div>
   </div>
 
-  <div class="sky">
-    <!-- 中央欢迎文字 -->
-    <div class="sky-center-text">Welcome to Our Little Town</div>
-  </div>
+  <section class="border"></section>
 
-  <!-- 第三场景：星露谷（保留结构 + 可滚动 + 清空内容 + 纯色底部） -->
-<div class="final-scene">
-  <header class="d-flex justify-between align-center w-100">
-    <!-- <img class="logo-icon" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/logo.png" alt="logo">
-    <img class="menu-icon" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/menu.png" alt="menu icon"> -->
-    <nav class="dropdown-nav closed">
-      <a href="#hero">
-        <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/home-icon.png" alt="home-icon">
-        Home
-      </a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- 保留：Hero 村庄 -->
-    <div class="hero-bg">
-      <div class="bg-1a"></div>
-      <div class="bg-1b"></div>
-      <div class="bg-2a"></div>
-      <div class="bg-2b"></div>
+  <!-- ========== PORTFOLIO CONTENT ========== -->
+  <div class="portfolio-pixel">
+    <div class="pixel-header">
+      <h1>🎽 RUNBUDDY · Process Portfolio</h1>
+      <p>✦ Companion-based Gamified Running Buddy ✦ Beginner-friendly · Community Co-creation ✦</p>
     </div>
-    <section id="hero">
-      <div class="page-title">GO BUDDY</div>
-      <img class="hero-img" src="image/road.png" alt="flat image">
+
+    <section id="motivation-research" class="portfolio-section pixel-card">
+      <h2 class="pixel-title">Motivation &amp; Research</h2>
+      <div class="pixel-subtitle">The Why · Motivation statement (~200 words)</div>
+      <div class="why-text">
+        We chose the "Active Lifestyles" direction because we've witnessed too many beginners being deterred from running—due to boredom, loneliness, and lack of positive feedback. Existing apps overemphasize competitive data while neglecting emotional support and habit formation for beginners.<br><br>
+        RunBuddy creates a <strong>cartoon running companion</strong> that transforms running from a "task" to an "anticipation" through companionship mechanisms, lightweight gamification, and safe running volume recommendations. We integrate narrative growth, costume collection, and local route unlocking into the product, responding to the concept of inclusive sports. This design directly addresses real pain points: beginners need encouragement, not pressure. Based on Self-Determination Theory (SDT), RunBuddy enhances autonomy, competence, and relational connection to help users establish sustainable active lifestyles.
+      </div>
+
+      <div class="pixel-subtitle" style="margin-top: 1.5rem;">The Gap · Four academic papers &amp; four commercial products (each: 3 done well · 3 missed)</div>
+      <div class="gap-grid">
+        <div class="paper-item"><strong>📄 Run Together (Şahin & Şener)</strong><br>
+          <span class="badge-good">✅ Strengths: Mixed methods/Social motivation/SDT analysis</span><br>
+          <span class="badge-miss">❌ Gaps: Lack of offline scenarios / Insufficient core gamification</span>
+        </div>
+        <div class="paper-item"><strong>📄 Just a Fad? Gamification (2014)</strong><br>
+          <span class="badge-good">✅ Strengths: COM-B model/In-depth narrative advocacy</span><br>
+          <span class="badge-miss">❌ Gaps: Outdated cases/No runner-specific validation</span>
+        </div>
+        <div class="paper-item"><strong>📄 Persuasive Technology (Fritz et al.)</strong><br>
+          <span class="badge-good">✅ Strengths: Long-term tracking/"Data contract" concept</span><br>
+          <span class="badge-miss">❌ Gaps: Superficial social gamification analysis / No systematic solutions</span>
+        </div>
+        <div class="paper-item"><strong>📄 Smartphone games & BCTs</strong><br>
+          <span class="badge-good">✅ Strengths: BCTs mapping / mySugr case study</span><br>
+          <span class="badge-miss">❌ Gaps: Lack of outdoor group scenarios</span>
+        </div>
+      </div>
+      <div class="gap-grid">
+        <div class="product-item"><strong>🏅 Sigma (Joyrun competitor)</strong><br>✅ Ad-free/Beijing Sport University AI guidance/Campus social features<br>❌ Lack of advanced training/Underdeveloped community/GPS drift</div>
+        <div class="product-item"><strong>🏅 Joyrun</strong><br>✅ Active running groups/Online events/3D track<br>❌ Excessive ads/Location errors/Heart rate lag</div>
+        <div class="product-item"><strong>🏅 Keep</strong><br>✅ Structured courses/Hardware ecosystem/IP medals<br>❌ Data retention only 30 days/AI coach offline/Weak check-in incentives</div>
+        <div class="product-item"><strong>🏅 Huawei Health</strong><br>✅ High market share/Accurate health monitoring/Multi-device sync<br>❌ Poor cross-brand experience/Cluttered UI/Redundant features</div>
+      </div>
+      <p style="margin-top: 12px; font-size:0.85rem;"><strong>🎯 Key Findings：</strong> Existing products generally lack "deep gamification narrative", neglect emotional companionship for beginners and safe running volume guidance; social functions focus on competition rather than lightweight encouragement. RunBuddy will fill the gap of "companionship + moderate rewards + localized routes + injury prevention mechanisms".</p>
+
+      <div class="pixel-subtitle" style="margin-top: 1.5rem;">The Stakeholders · Primary &amp; secondary users (personas)</div>
+      <div class="persona-row">
+        <div class="persona-card">
+          <h3 style="color:#b4652c;">🌟 Emily · Beginner (Primary User)</h3>
+          <p>21 years old, XJTLU student who wants to lose weight and relieve stress through running but has never persisted. Owns an Apple Watch but is intimidated by professional data. Likes cute things and costume collection.</p>
+          <p><strong>Goals：</strong> Form habits with low threshold, gain companionship and positive feedback, avoid sports injuries.<br>
+          <strong>Needs：</strong> Minimalist interface, real-time encouragement from cartoon companion, calories exchanged for costumes, safe route prompts, non-competitive data display.</p>
+        </div>
+        <div class="persona-card">
+          <h3 style="color:#b4652c;">🏃 Mike · Senior Organizer (Secondary User)</h3>
+          <p>33 years old, manager of a Suzhou running group (600 members), uses Garmin watch and is annoyed by Joyrun ads. Hopes to efficiently manage the community and help beginners integrate.</p>
+          <p><strong>Goals：</strong> Professional data tracking + group event functions, create inclusive challenges, share experience ad-free.<br>
+          <strong>Needs：</strong> Event management tools, team challenges, professional device compatibility, bulletin board light social features.</p>
+        </div>
+      </div>
+      <p style="margin-top: 8px;"><em>Product Impact: Emily drives cute companionship and simple guidance; Mike drives community events and professional compatibility, forming a mutually supportive ecosystem.</em></p>
     </section>
 
-    <!-- 保留结构 清空内容 -->
-    <section id="locations"></section>
-    <section class="border"></section>
-    <section id="map"></section>
-    <section id="villagers"></section>
-    <section id="contact"></section>
+    <section id="user-requirements" class="portfolio-section pixel-card">
+      <h2 class="pixel-title">User Requirements</h2>
+      <div class="pixel-subtitle">User journey map · Pain points of target users</div>
+      <div class="pixel-subtitle">User journey map</div>
+      <div style="text-align: center; margin: 1.5rem 0;">
+        <img src="image/userjourneymap.png" alt="User Journey Map" style="max-width: 100%; height: auto; border-radius: 16px; border: 4px solid #d4a373; box-shadow: 6px 6px 0 rgba(0,0,0,0.15);">
+      </div>
+      <div class="journey-pixel">
+        📍 ① Having the idea to run → 😣 Fear of loneliness / Not knowing how to start<br>
+        📍 ② Opening the App → 😫 Complex data / Competitive pressure<br>
+        📍 ③ During running → 😐 Boredom / Difficulty persisting<br>
+        📍 ④ After finishing → 😕 Lack of positive feedback / Easy to give up<br>
+        🎯 <strong>RunBuddy Intervention：</strong> 🎮 Companion support + 🎁 Collection surprises + 📢 Community encouragement + 🛡️ Safe running volume reminders
+      </div>
+      
+      <div class="requirements-list" style="margin: 1.5rem 0;">
+        <strong>Requirements list · Three must-haves for a &ldquo;playful&rdquo; system</strong>
+        <ul style="margin-top: 12px; margin-left: 20px;">
+          <li><strong>1. Real-time Companion Motivation System</strong> — Virtual companion provides voice/text encouragement during running, rewards stars and interactive easter eggs for each kilometer completed, eliminating loneliness.</li>
+          <li><strong>2. Gamified Costumes & Growth</strong> — Exchange calories burned through safe running for tokens to unlock companion costumes, accessories and local route maps, visualizing exercise achievements.</li>
+          <li><strong>3. Lightweight Community Bulletin Board + Beginner-friendly Challenges</strong> — Users can post updates, like and comment; support team check-in challenges (low-intensity format), with experienced runners guiding beginners to form a supportive atmosphere.</li>
+        </ul>
+      </div>
 
-    <!-- 保留：底部纯色框（原版样式） -->
-    <footer id="footerStyle" class="d-flex flex-wrap flex-col justify-center align-center">
-      <div class="d-flex justify-center align-center" style="gap:20px;">
-        <img class="title" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/title.png" alt="title">
-        <img class="logo-gif" src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/ca_logo.gif" alt="concernedape logo">
-      </div>
-      <div class="d-flex flex-wrap flex-col justify-center align-center">
-        <div class="d-flex mb-20">
-          <a target="_blank" href="https://twitter.com/concernedape"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/twitter.png" alt="twitter"></a>
-          <a target="_blank" href="https://www.facebook.com/StardewValley"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/facebook.png" alt="facebook"></a>
-          <a target="_blank" href="https://www.reddit.com/r/StardewValley/"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/reddit.png" alt="reddit"></a>
-          <a target="_blank" href="https://www.stardewvalley.net/contact/"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/email.png" alt="mail"></a>
-          <a target="_blank" href="https://discordapp.com/invite/StardewValley"><img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/discord.png" alt="discord"></a>
+      <div class="pixel-subtitle">Evidence of life · 5 photos</div>
+      <div class="evidence-grid">
+        <div class="evidence-item" style="width: auto; height: auto; padding: 8px;">
+          <img src="image/evidenceoflife1.png" alt="Evidence of Life 1" style="width: 100%; max-width: 180px; height: 120px; object-fit: cover; border-radius: 10px; border: 3px solid #b48c48;">
         </div>
-        <a href="#hero">
-          <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/up.png" alt="back to top">
-        </a>
+        <div class="evidence-item" style="width: auto; height: auto; padding: 8px;">
+          <img src="image/evidenceoflife2.png" alt="Evidence of Life 2" style="width: 100%; max-width: 180px; height: 120px; object-fit: cover; border-radius: 10px; border: 3px solid #b48c48;">
+        </div>
+        <div class="evidence-item" style="width: auto; height: auto; padding: 8px;">
+          <img src="image/evidenceoflife3.png" alt="Evidence of Life 3" style="width: 100%; max-width: 180px; height: 120px; object-fit: cover; border-radius: 10px; border: 3px solid #b48c48;">
+        </div>
+        <div class="evidence-item" style="width: auto; height: auto; padding: 8px;">
+          <img src="image/evidenceoflife4.png" alt="Evidence of Life 4" style="width: 100%; max-width: 180px; height: 120px; object-fit: cover; border-radius: 10px; border: 3px solid #b48c48;">
+        </div>
+        <div class="evidence-item" style="width: auto; height: auto; padding: 8px;">
+          <img src="image/evidenceoflife5.png" alt="Evidence of Life 5" style="width: 100%; max-width: 180px; height: 120px; object-fit: cover; border-radius: 10px; border: 3px solid #b48c48;">
+        </div>
       </div>
-    </footer>
-  </main>
+    </section>
+
+    <section id="ideation-alternatives" class="portfolio-section pixel-card">
+      <h2 class="pixel-title">Ideation &amp; Alternatives</h2>
+      <div class="pixel-subtitle">Crazy Eights · 8 rapid hand-drawn UI sketches</div>
+      <div class="sketch-row">
+        <div style="text-align: center;">
+          <img src="image/crazyeights1.jpg" alt="Crazy Eight 1" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #aa7e44; box-shadow: 3px 3px 0 #9b6e3e;">
+          <p style="font-family: monospace; font-size: 0.7rem; margin-top: 4px;">1</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="image/crazyeights2.jpg" alt="Crazy Eight 2" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #aa7e44; box-shadow: 3px 3px 0 #9b6e3e;">
+          <p style="font-family: monospace; font-size: 0.7rem; margin-top: 4px;">2</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="image/crazyeights3.jpg" alt="Crazy Eight 3" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #aa7e44; box-shadow: 3px 3px 0 #9b6e3e;">
+          <p style="font-family: monospace; font-size: 0.7rem; margin-top: 4px;">3</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="image/crazyeights4.jpg" alt="Crazy Eight 4" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #aa7e44; box-shadow: 3px 3px 0 #9b6e3e;">
+          <p style="font-family: monospace; font-size: 0.7rem; margin-top: 4px;">4</p>
+        </div>
+      </div>
+
+      <div class="pixel-subtitle" style="margin-top: 1.5rem;">Design alternatives · Compare 2&ndash;3 system directions &amp; final choice</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="alt-card"><strong>Option A: Pure Data Competitive</strong><br>Emphasizes pace/rankings, similar to traditional sports apps.<br>❌ Disadvantages: High pressure for beginners, lack of emotional stickiness.</div>
+        <div class="alt-card"><strong>Option B: Hardcore Gamified RPG</strong><br>Complex quests, monster battles and leveling up, deviating from the essence of running.<br>❌ Disadvantages: High learning cost, deviation from sports safety.</div>
+        <div class="alt-card" style="background:#f7e5ce;"><strong>✅ Option C: Companion-based Collection + Light Narrative (RunBuddy)</strong><br>✔️ Virtual companion support + safe running volume exchange for costumes + unlock real routes + bulletin board social features.<br>✔️ Integrates "deep gamification" theory with injury prevention mechanisms to protect beginners.</div>
+      </div>
+      <p style="margin-top: 12px;"><strong>Reasons for Selection：</strong> Directly addresses the lack of "deep narrative gamification" in literature, combines Sigma's campus advantages with Joyrun's route fun, fills the frustration caused by excessive competition, and makes running sustainable.</p>
+
+      <div class="pixel-subtitle" style="margin-top: 1rem;">Low-fi prototype · Clickable Figma (add your share link)</div>
+      <button class="btn-pixel" id="figmaPixelBtn">🎨 Expand Low-Fi Prototype Demo</button>
+      <div id="pixelMockup" style="margin-top: 1rem; background:#eadbba; border-radius: 20px; padding: 1.2rem; display: none; border: 2px solid #c99e5b;">
+        <p><strong>📱 RunBuddy Low-Fi Prototype Structure</strong><br>
+        Home Screen: Companion status + Today's mileage; Bottom Navigation: Running/Costumes/Map/Bulletin Board.<br>
+        Core Flow: Companion pops up encouragement during running, earns "Bean Coins" after finishing, exchange costumes in shop, unlock new routes.<br>
+        <span style="background:#fff0cf; display:inline-block; padding:6px; border-radius:12px;">🎧 [Simulated Interface] : 🐶 "Emily, you've jogged for 15 minutes! Collected 3 coins～ You can change the bear's hat after finishing!"</span></p>
+        <p style="font-size:0.8rem;">Paste your Figma URL in the main low-fi link above when ready.</p>
+      </div>
+    </section>
+
+    <section id="technical-implementation" class="portfolio-section pixel-card">
+      <h2 class="pixel-title">Technical Implementation</h2>
+      <h3 class="pixel-subtitle" style="margin-top: 0;">System architecture</h3>
+      <p>Web app data flow: client (browser) &harr; API &harr; database &amp; third-party services (maps, health sync). Replace this box with your diagram image.</p>
+      <div class="arch-placeholder" role="img" aria-label="Architecture diagram placeholder">[Diagram: Web app &middot; API &middot; DB &middot; external APIs]</div>
+      <h3 class="pixel-subtitle">High-fi prototype / hosted build</h3>
+      <p><strong>Live demo:</strong> <a href="https://example.com/runbuddy-demo" style="color:#b4652c; font-weight:700;">https://example.com/runbuddy-demo</a> (replace with your GitHub Pages / Vercel URL)</p>
+      <h3 class="pixel-subtitle">Individual contributions</h3>
+      <table class="contrib-table">
+        <thead>
+          <tr>
+            <th scope="col">Member</th>
+            <th scope="col">Code</th>
+            <th scope="col">UI design</th>
+            <th scope="col">Content</th>
+            <th scope="col">Testing</th>
+            <th scope="col">Other</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Member A</td>
+            <td>Frontend architecture</td>
+            <td>High-fi UI</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Member B</td>
+            <td>&mdash;</td>
+            <td>Visual assets</td>
+            <td>Gamification narrative</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Member C</td>
+            <td>Backend API</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>Database design</td>
+          </tr>
+          <tr>
+            <td>Member D</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>Research &amp; writing</td>
+            <td>User testing</td>
+            <td>&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem; font-size:0.9rem;"><strong>Stack notes:</strong> Frontend React + Node.js + MongoDB; Apple HealthKit / Garmin sync; Amap API for local routes; safe running volume reminders.</p>
+    </section>
+    <section id="evaluation-reflection" class="portfolio-section pixel-card">
+      <h2 class="pixel-title">Evaluation &amp; Reflection</h2>
+      <h3 class="pixel-subtitle" style="margin-top: 0;">Usability testing (alpha, 3 participants)</h3>
+      <p>Beginners: companion makes running feel less lonely. Running-group managers: bulletin board direction resonates. Add task times, severity, and quotes from sessions.</p>
+      <h3 class="pixel-subtitle">Iterative refinement</h3>
+      <p>Increased in-run encouragement frequency; simplified costume shop hierarchy; added &ldquo;Safe Running Volume Guardian&rdquo;; reduced rewards when volume is excessive.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem;">
+        <div class="evidence-item" style="width:140px; height:120px;">Before<br>(screenshot)</div>
+        <div class="evidence-item" style="width:140px; height:120px;">After<br>(screenshot)</div>
+      </div>
+      <h3 class="pixel-subtitle">Final reflection</h3>
+      <p><strong>Social / ethical:</strong> Privacy, inclusive language, avoiding shame or toxic competition.</p>
+      <p><strong>AI in the project:</strong> Used for draft encouragement copy and analysis assistance; human review for tone and safety; no sensitive health data in third-party prompts.</p>
+    </section>
+    <footer>🏃‍♂️ RunBuddy · From Research to Prototype | Active Lifestyles Track | 2026 Pixel Style Process Portfolio</footer>
+  </div>
+
+  <section id="locations"></section>
+  <section id="map"></section>
+  <section id="villagers"></section>
+  <section id="contact"></section>
 </div>
-</div>
-  <script src="js/main.js"></script>
+
+<script>
+  function updateDateTime() {
+    const now = new Date();
+    const monthNames = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const month = monthNames[now.getMonth()];
+    const day = now.getDate();
+    document.getElementById("today-date").textContent = `${month} ${day}`;
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    hours = hours < 10 ? "0"+hours : hours;
+    minutes = minutes < 10 ? "0"+minutes : minutes;
+    document.getElementById("today-time").textContent = `${hours}:${minutes}`;
+  }
+  updateDateTime();
+  setInterval(updateDateTime, 60000);
+
+  function initPixelClouds() {
+  const skyDiv = document.getElementById('skyScene');
+  if (!skyDiv) return;
+  
+  // 清除已有云朵，避免重复添加
+  const existingClouds = skyDiv.querySelectorAll('.cloud');
+  existingClouds.forEach(cloud => cloud.remove());
+  
+  const cloudTemplate = `<div class="cloud">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64" shape-rendering="crispEdges">
+      <rect x="24" y="32" width="16" height="16" fill="#fff"/>
+      <rect x="40" y="32" width="16" height="16" fill="#fff"/>
+      <rect x="56" y="32" width="16" height="16" fill="#fff"/>
+      <rect x="72" y="32" width="16" height="16" fill="#fff"/>
+      <rect x="40" y="16" width="16" height="16" fill="#fff"/>
+      <rect x="56" y="16" width="16" height="16" fill="#fff"/>
+      <rect x="72" y="16" width="16" height="16" fill="#fff"/>
+    </svg>
+  </div>`;
+  
+  // 生成 8-12 朵云
+  const numClouds = Math.floor(Math.random() * 5) + 8;
+  
+  for (let i = 0; i < numClouds; i++) {
+    skyDiv.insertAdjacentHTML('beforeend', cloudTemplate);
+  }
+  
+  const clouds = document.querySelectorAll('#skyScene .cloud');
+  clouds.forEach((cloud, index) => {
+    // 随机大小 0.4 - 1.2
+    const size = 0.4 + Math.random() * 0.8;
+    // 随机速度 40 - 100 秒
+    const speed = 40 + Math.random() * 60;
+    // 随机垂直位置 5% - 70%
+    const top = 5 + Math.random() * 65;
+    // 随机延迟 -40 到 0 秒，让云朵错开
+    const delay = Math.random() * -40;
+    
+    cloud.style.cssText = `
+      position: absolute;
+      width: ${80 + Math.random() * 60}px;
+      height: auto;
+      top: ${top}%;
+      transform: scale(${size});
+      opacity: ${0.6 + size * 0.3};
+      animation: cloudMove ${speed}s linear ${delay}s infinite;
+      z-index: ${15 + Math.floor(Math.random() * 10)};
+    `;
+  });
+  
+  console.log(`✅ 已生成 ${numClouds} 朵云`);
+}
+
+  /* ═══════════════════════════════════════════════════════
+     PIXEL-ART CLOUDS — Hero full-screen background
+     8-bit SVG clouds drifting across the road image
+  ═══════════════════════════════════════════════════════ */
+  function initHeroClouds() {
+    const container = document.getElementById('heroClouds');
+    if (!container) return;
+
+    // ── Three 8-bit cloud SVG shapes ──────────────────
+    const cloudShapes = [
+      /* Shape A · Classic small cloud */
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64" shape-rendering="crispEdges">
+        <rect x="32" y="32" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="48" y="32" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="64" y="32" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="80" y="32" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="48" y="16" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="64" y="16" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+        <rect x="80" y="16" width="16" height="16" fill="rgba(255,255,255,0.82)"/>
+      </svg>`,
+      /* Shape B · Tall wide cloud */
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 96" shape-rendering="crispEdges">
+        <rect x="32"  y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="48"  y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="64"  y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="80"  y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="96"  y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="112" y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="128" y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="144" y="48" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="48"  y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="64"  y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="80"  y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="96"  y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="112" y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="128" y="32" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="64"  y="16" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="80"  y="16" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="96"  y="16" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="112" y="16" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="80"   y="0" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+        <rect x="96"   y="0" width="16" height="16" fill="rgba(255,255,255,0.75)"/>
+      </svg>`,
+      /* Shape C · Fluffy double-hump cloud */
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80" shape-rendering="crispEdges">
+        <rect x="16"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="32"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="48"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="64"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="80"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="96"  y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="112" y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="128" y="48" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="32"  y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="48"  y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="64"  y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="80"  y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="96"  y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="112" y="32" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="48"  y="16" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="64"  y="16" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="80"  y="16" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="96"  y="16" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="64"   y="0" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+        <rect x="80"   y="0" width="16" height="16" fill="rgba(255,255,255,0.78)"/>
+      </svg>`,
+    ];
+
+    // ── Cloud tiers: different height bands + speeds ──
+    const tiers = [
+      { topMin:  4, topMax: 18, scaleMin: 0.5, scaleMax: 0.9, speedMin: 35, speedMax: 55, opacityMin: 0.65, opacityMax: 0.88, tierClass: 'hero-cloud-tier-a' },
+      { topMin: 18, topMax: 40, scaleMin: 0.6, scaleMax: 1.1, speedMin: 50, speedMax: 75, opacityMin: 0.60, opacityMax: 0.85, tierClass: 'hero-cloud-tier-b' },
+      { topMin: 40, topMax: 62, scaleMin: 0.7, scaleMax: 1.3, speedMin: 65, speedMax: 100,opacityMin: 0.55, opacityMax: 0.80, tierClass: 'hero-cloud-tier-c' },
+    ];
+
+    // ── Total: 12 clouds ──────────────────────────────
+    tiers.forEach((tier, ti) => {
+      const perTier = [5, 4, 3][ti]; // 12 total
+      for (let i = 0; i < perTier; i++) {
+        const shapeIdx = i % cloudShapes.length;
+        const cloudEl  = document.createElement('div');
+        cloudEl.className = `hero-cloud ${tier.tierClass}`;
+        cloudEl.innerHTML  = cloudShapes[shapeIdx];
+
+        const scale  = tier.scaleMin  + Math.random() * (tier.scaleMax  - tier.scaleMin);
+        const top    = tier.topMin    + Math.random() * (tier.topMax    - tier.topMin);
+        const speed  = tier.speedMin  + Math.random() * (tier.speedMax  - tier.speedMin);
+        const delay  = (Math.random() * -(speed * 1.4)).toFixed(2); // stagger start
+        const opacity= (tier.opacityMin + Math.random() * (tier.opacityMax - tier.opacityMin)).toFixed(2);
+        const width  = (128 + Math.random() * 80).toFixed(0); // 128–208 px logical
+
+        cloudEl.style.cssText = [
+          `top: ${top.toFixed(1)}%;`,
+          `width: ${width}px;`,
+          `height: auto;`,
+          `--scale: ${scale};`,
+          `--speed: ${speed.toFixed(1)}s;`,
+          `opacity: ${opacity};`,
+          `animation-delay: ${delay}s;`,
+          `z-index: ${ti + 1};`,
+        ].join(' ');
+
+        container.appendChild(cloudEl);
+      }
+    });
+
+    console.log('✅ Pixel-art hero clouds generated');
+  }
+
+  const wrapper = document.querySelector('.exhibition-wrapper');
+  const ticket = document.getElementById('ticket');
+  const skyDiv = document.getElementById('skyScene');
+  const finalDiv = document.getElementById('finalScene');
+  let isTriggered = false;
+
+  ticket.addEventListener('mouseenter', () => {
+    if (isTriggered) return;
+    isTriggered = true;
+    ticket.classList.add('hold-open');
+    setTimeout(() => {
+      wrapper.classList.add('fade-out');
+      skyDiv.classList.add('show');
+      initPixelClouds();
+      setTimeout(() => {
+        skyDiv.classList.add('fade-to-light');
+        setTimeout(() => {
+          skyDiv.style.opacity = '0';
+          setTimeout(() => {
+            finalDiv.classList.add('show');
+            // Pixel-art clouds drift across the hero image
+            initHeroClouds();
+          }, 400);
+        }, 800);
+      }, 1000);
+    }, 200);
+  });
+
+  const figmaBtn = document.getElementById('figmaPixelBtn');
+  const mockDiv = document.getElementById('pixelMockup');
+  if (figmaBtn) {
+    figmaBtn.addEventListener('click', () => {
+      if (mockDiv.style.display === 'none' || !mockDiv.style.display) {
+        mockDiv.style.display = 'block';
+      } else {
+        mockDiv.style.display = 'none';
+      }
+    });
+  }
+  if (mockDiv) mockDiv.style.display = 'none';
+
+  /* ═══════════════════════════════════════════════════════
+     SCROLL PROGRESS BAR - Running Character
+  ═══════════════════════════════════════════════════════ */
+  const scrollProgress = document.getElementById('scrollProgress');
+  const scrollFill = document.getElementById('scrollFill');
+  const runnerContainer = document.getElementById('runnerContainer');
+  const runnerSvg = document.getElementById('runnerSvg');
+  const progressLabel = document.getElementById('progressLabel');
+  const finalScene = document.getElementById('finalScene');
+
+  let lastScrollY = 0;
+  let isRunnerRunning = false;
+  let runnerTimeout;
+  let currentFrame = 0;
+
+  // SVG frames for running animation
+  const runnerFrames = [
+    // Frame 1: Left leg forward
+    `<svg class="runner-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <rect x="6" y="0" width="4" height="1" fill="#5e3a1c"/>
+      <rect x="6" y="1" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="2" width="6" height="4" fill="#e63946"/>
+      <rect x="6" y="2" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="3" y="2" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="11" y="3" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="6" width="6" height="1" fill="#2c4b2c"/>
+      <rect x="5" y="7" width="2" height="2" fill="#ffd5b5"/>
+      <rect x="4" y="9" width="3" height="1" fill="#5e3a1c"/>
+      <rect x="9" y="7" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="10" y="7" width="2" height="2" fill="#ffd5b5"/>
+      <rect x="11" y="9" width="3" height="1" fill="#5e3a1c"/>
+    </svg>`,
+    // Frame 2: Legs together (mid-air)
+    `<svg class="runner-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <rect x="6" y="0" width="4" height="1" fill="#5e3a1c"/>
+      <rect x="6" y="1" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="2" width="6" height="4" fill="#e63946"/>
+      <rect x="6" y="2" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="3" y="3" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="11" y="2" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="6" width="6" height="1" fill="#2c4b2c"/>
+      <rect x="5" y="7" width="3" height="2" fill="#ffd5b5"/>
+      <rect x="8" y="7" width="3" height="2" fill="#ffd5b5"/>
+      <rect x="5" y="9" width="3" height="1" fill="#5e3a1c"/>
+      <rect x="8" y="9" width="3" height="1" fill="#5e3a1c"/>
+    </svg>`,
+    // Frame 3: Right leg forward
+    `<svg class="runner-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <rect x="6" y="0" width="4" height="1" fill="#5e3a1c"/>
+      <rect x="6" y="1" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="2" width="6" height="4" fill="#e63946"/>
+      <rect x="6" y="2" width="4" height="1" fill="#ffd5b5"/>
+      <rect x="3" y="3" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="11" y="2" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="5" y="6" width="6" height="1" fill="#2c4b2c"/>
+      <rect x="9" y="7" width="2" height="2" fill="#ffd5b5"/>
+      <rect x="11" y="9" width="3" height="1" fill="#5e3a1c"/>
+      <rect x="5" y="7" width="2" height="1" fill="#ffd5b5"/>
+      <rect x="4" y="7" width="2" height="2" fill="#ffd5b5"/>
+      <rect x="2" y="9" width="3" height="1" fill="#5e3a1c"/>
+    </svg>`
+  ];
+
+  let frameInterval;
+
+  function startRunningAnimation() {
+    if (frameInterval) return;
+    frameInterval = setInterval(() => {
+      currentFrame = (currentFrame + 1) % runnerFrames.length;
+      runnerSvg.outerHTML = runnerFrames[currentFrame];
+    }, 100);
+  }
+
+  function stopRunningAnimation() {
+    if (frameInterval) {
+      clearInterval(frameInterval);
+      frameInterval = null;
+    }
+    currentFrame = 0;
+    if (runnerSvg) {
+      runnerSvg.outerHTML = runnerFrames[0];
+    }
+  }
+
+  function updateScrollProgress() {
+    // Only show progress after entering final scene
+    if (!finalScene.classList.contains('show')) {
+      scrollProgress.style.opacity = '0';
+      return;
+    }
+
+    scrollProgress.style.opacity = '1';
+
+    // Get scroll position relative to the final scene
+    const scrollTop = finalScene.scrollTop;
+    const scrollHeight = finalScene.scrollHeight - finalScene.clientHeight;
+
+    if (scrollHeight <= 0) {
+      progressLabel.textContent = '0%';
+      scrollFill.style.height = '0%';
+      runnerContainer.style.bottom = '0%';
+      return;
+    }
+
+    const progress = Math.min(Math.max((scrollTop / scrollHeight) * 100, 0), 100);
+    const progressInt = Math.round(progress);
+
+    // Update fill bar
+    scrollFill.style.height = progress + '%';
+
+    // Update runner position (from bottom to top)
+    const trackHeight = runnerContainer.parentElement.clientHeight;
+    const runnerHeight = runnerContainer.clientHeight;
+    const maxBottom = trackHeight - runnerHeight;
+    const bottomPos = (progress / 100) * maxBottom;
+    runnerContainer.style.bottom = bottomPos + 'px';
+
+    // Update percentage label
+    progressLabel.textContent = progressInt + '%';
+
+    // Check if scrolling (add/remove running animation)
+    const currentScrollY = scrollTop;
+    if (currentScrollY !== lastScrollY) {
+      if (!isRunnerRunning) {
+        runnerContainer.classList.add('running');
+        startRunningAnimation();
+        isRunnerRunning = true;
+      }
+      clearTimeout(runnerTimeout);
+      runnerTimeout = setTimeout(() => {
+        runnerContainer.classList.remove('running');
+        stopRunningAnimation();
+        isRunnerRunning = false;
+      }, 150);
+    }
+    lastScrollY = currentScrollY;
+  }
+
+  // Listen to scroll events on the final scene
+  if (finalScene) {
+    finalScene.addEventListener('scroll', updateScrollProgress);
+  }
+
+  // Also listen to window scroll as backup
+  window.addEventListener('scroll', updateScrollProgress);
+
+  // Initial update
+  updateScrollProgress();
+</script>
 </body>
 </html>

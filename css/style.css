@@ -1361,7 +1361,7 @@ header {
   /* 背景遮罩 */
   .bg-mask {
     display: block !important;
-    top: 90vh;     /* 手机端起始位置 */
+    top: 95vh;     /* 手机端起始位置 */
     height: 1590vh;
   }
 }

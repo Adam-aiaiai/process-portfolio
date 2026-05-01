@@ -166,6 +166,54 @@ const waitForScene = setInterval(() => {
 }, 500);
 
 
+// =========================================
+// 左侧时间线滚动高亮功能
+// =========================================
+function initTimelineScroll() {
+  const timelineItems = document.querySelectorAll('.timeline-item, .timeline-subitem');
+  const sections = [];
+
+  if (timelineItems.length === 0) return;
+
+  // 收集所有时间线对应的 section
+  timelineItems.forEach(item => {
+    const href = item.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const section = document.querySelector(href);
+      if (section) {
+        sections.push({
+          item: item,
+          section: section
+        });
+      }
+    }
+  });
+
+  function highlightTimeline() {
+    let currentSection = null;
+
+    sections.forEach(({ item, section }) => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + window.pageYOffset;
+      const sectionHeight = rect.height;
+      
+      // 判断当前 section 是否在视口内
+      if (window.pageYOffset >= sectionTop - 200 && 
+          window.pageYOffset < sectionTop + sectionHeight - 200) {
+        currentSection = item;
+      }
+    });
+
+    timelineItems.forEach(item => item.classList.remove('active'));
+    if (currentSection) {
+      currentSection.classList.add('active');
+    }
+  }
+
+  window.addEventListener('scroll', highlightTimeline, { passive: true });
+  highlightTimeline();
+}
+
 // ==============================
 // PORTFOLIO PIXEL 交互
 // ==============================
@@ -188,6 +236,7 @@ const portfolioInterval = setInterval(() => {
   const final = document.querySelector('.final-scene.show');
   if (final) {
     initPortfolioPixel();
+    initTimelineScroll();
     clearInterval(portfolioInterval);
   }
 }, 300);
@@ -273,4 +322,5 @@ window.onload = function () {   // 【新增】启动 Loading 点
   initAutoExit();
   initClouds();
   initScrollProgress();
+  initTimelineScroll();
 };

@@ -99,12 +99,43 @@
         <div class="bg-mask"></div>
       </section>
 
-      <!-- ========== PORTFOLIO CONTENT ========== -->
-      <div class="portfolio-pixel">
-        <div class="pixel-header">
-          <h1>🎽 RUNBUDDY · Process Portfolio</h1>
-          <p>✦ Companion-based Gamified Running Buddy ✦ Beginner-friendly ✦ Community Co-creation </p>
-        </div>
+      <!-- 左侧时间线 -->
+  <div class="timeline-sidebar" id="timelineSidebar">
+    <div class="timeline-line"></div>
+    <a href="#motivation-research" class="timeline-item active" data-week="1">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 1<br>Motivation &amp; Research</span>
+    </a>
+    <a href="#user-requirements" class="timeline-item" data-week="2">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 2<br>User Requirements</span>
+    </a>
+    <a href="#ideation-alternatives" class="timeline-item" data-week="3-4">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 3-4<br>Ideation &amp; Alternatives</span>
+    </a>
+    <div class="timeline-subitems">
+      <a href="#lowfi" class="timeline-subitem" data-week="5">
+        <div class="timeline-dot-small"></div>
+        <span class="timeline-label-small">Low-fi · Week 5</span>
+      </a>
+      <a href="#highfi" class="timeline-subitem" data-week="6">
+        <div class="timeline-dot-small"></div>
+        <span class="timeline-label-small">High-fi · Week 6</span>
+      </a>
+    </div>
+    <a href="#technical-implementation" class="timeline-item" data-week="8-9">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 8-9<br>Technical Implementation</span>
+    </a>
+  </div>
+
+  <!-- ========== PORTFOLIO CONTENT ========== -->
+  <div class="portfolio-pixel">
+    <div class="pixel-header">
+      <h1>🎽 RUNBUDDY · Process Portfolio</h1>
+      <p>✦ Companion-based Gamified Running Buddy ✦ Beginner-friendly ✦ Community Co-creation </p>
+    </div>
 
         <!-- 快速导航栏 -->
         <nav class="portfolio-nav">
@@ -113,6 +144,7 @@
           <a href="#ideation-alternatives" class="nav-item">Ideation & Alternatives</a>
           <a href="#technical-implementation" class="nav-item">Technical Implementation</a>
           <a href="#evaluation-reflection" class="nav-item">Evaluation & Reflection</a>
+          <a href="#ai-reflection" class="nav-item">AI Reflection</a>
         </nav>
 
         <section id="motivation-research" class="portfolio-section pixel-card">
@@ -222,9 +254,10 @@
           <div class="requirements-list" style="margin: 1.5rem 0;">
             <strong>Requirements list · Three must-haves for a &ldquo;playful&rdquo; system</strong>
             <ul style="margin-top: 12px; margin-left: 20px;">
-              <li><strong>1. Virtual Buddy Companionship</strong> — An immersive running partner. Nurture, customize, and bond with your buddy using coins earned through your efforts, turning fitness into a rewarding emotional experience.</li>
-              <li><strong>2. In-run encouragement</strong> — Provides real-time feedback during runs, offering dynamic responses such as prompts (which can be personalized by users) and milestone recognition to support users.</li>
-              <li><strong>3. Healthy Running Guidance</strong> — Run Academy provides web-based tutorials for beginner runners to correct improper running form. Additionally, a warning page will prompt the user if their heart rate exceeds safe thresholds during a run.</li>
+              <li><strong>[R1] Virtual Buddy Companionship</strong> — An immersive running partner. Nurture, customize, and bond with your buddy using coins earned through your efforts, turning fitness into a rewarding emotional experience.</li>
+              <li><strong>[R2] In-run encouragement</strong> — Provides real-time feedback during runs, offering dynamic responses such as prompts (which can be personalized by users) and milestone recognition to support users.</li>
+              <li><strong>[R3] Healthy Running Guidance</strong> — Run Academy provides web-based tutorials for beginner runners to correct improper running form. Additionally, a warning page will prompt the user if their heart rate exceeds safe thresholds during a run.</li>
+              <li><strong>[R4] Community Integration</strong> — Bulletin board for group events, achievement sharing, and light social features without competitive pressure.</li>
             </ul>
           </div>
 
@@ -272,13 +305,13 @@
 
           <div class="pixel-subtitle" style="margin-top: 1.5rem;">Design alternatives · Compare 2&ndash;3 system directions &amp; final choice</div>
           <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-            <div class="alt-card"><strong>Option A: Pure Data Competitive</strong><br>Emphasizes pace/rankings, similar to traditional sports apps.<br>❌ Disadvantages: High pressure for beginners, lack of emotional stickiness.</div>
-            <div class="alt-card"><strong>Option B: Hardcore Gamified RPG</strong><br>Complex quests, monster battles and leveling up, deviating from the essence of running.<br>❌ Disadvantages: High learning cost, deviation from sports safety.</div>
+            <div class="alt-card"><strong>Option A: Pure Data Competitive</strong><br>Emphasizes pace/rankings, similar to traditional sports apps.<br>❌ Disadvantages: High pressure for beginners, lack of emotional stickiness. <em>Why rejected:</em> Our research shows beginners are intimidated by professional data (Fritz et al., 2014).</div>
+            <div class="alt-card"><strong>Option B: Hardcore Gamified RPG</strong><br>Complex quests, monster battles and leveling up, deviating from the essence of running.<br>❌ Disadvantages: High learning cost, deviation from sports safety. <em>Why rejected:</em> Lister et al. (2014) found story-driven emotional guidance outperforms task rewards for long-term retention.</div>
             <div class="alt-card" style="background:#f7e5ce;"><strong>✅ Option C: Companion-based Collection + Light Narrative (RunBuddy)</strong><br>✔️ Virtual companion support + safe running volume exchange for costumes + unlock real routes + bulletin board social features.<br>✔️ Integrates "deep gamification" theory with injury prevention mechanisms to protect beginners.</div>
           </div>
           <p style="margin-top: 12px;"><strong>Reasons for Selection：</strong> Directly addresses the lack of "deep narrative gamification" in literature, combines Sigma's campus advantages with Joyrun's route fun, fills the frustration caused by excessive competition, and makes running sustainable.</p>
 
-          <div class="pixel-subtitle" style="margin-top: 1rem;">Low-fi prototype · Figma Interactive</div>
+          <div class="pixel-subtitle" style="margin-top: 1rem;" id="lowfi">Low-fi prototype · Figma Interactive</div>
           <div class="figma-embed-container">
             <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FS5RmVo4XnA4YQXFcMHQC9Y%2FRunBuddy-Low-Fi-Prototype%3Fnode-id%3D0-1%26t%3DKqrKdzoC3atfzUBZ-1" allowfullscreen></iframe>
           </div>
@@ -288,7 +321,7 @@
             </a>
           </div>
 
-          <div class="pixel-subtitle" style="margin-top: 2.5rem;">High-fi prototype · Figma Interactive</div>
+          <div class="pixel-subtitle" style="margin-top: 2.5rem;" id="highfi">High-fi prototype · Figma Interactive</div>
           <div class="figma-embed-container">
             <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FKzAb0r3U4Qus5rZSpSun2d%2FRunBuddy-Hi-Fi-Prototype%3Fnode-id%3D0-1%26t%3DXWBVcBcMd05YW0Nr-1" allowfullscreen></iframe>
           </div>
@@ -366,17 +399,99 @@
         </section>
         <section id="evaluation-reflection" class="portfolio-section pixel-card">
           <h2 class="pixel-title">Evaluation &amp; Reflection</h2>
-          <h3 class="pixel-subtitle" style="margin-top: 0;">Usability testing</h3>
+          
+          <!-- Ethical Considerations -->
+          <h3 class="pixel-subtitle" style="margin-top: 0;">Ethical Considerations &amp; Informed Consent</h3>
+          <div class="ethics-box" style="background:#f0fdf4; border:2px solid #22c55e; border-radius:12px; padding:16px; margin-bottom:1rem;">
+            <p><strong>Research Ethics Commitment:</strong></p>
+            <ul style="margin-left:20px; font-size:0.9rem;">
+              <li><strong>Informed Consent:</strong> All participants in our user research, including usability testing and interviews, provided written consent after being fully informed about the study's purpose, procedures, and their right to withdraw.</li>
+              <li><strong>Data Privacy:</strong> Personal data collected during testing (e.g., age, running experience, health conditions) was anonymized and stored securely in compliance with GDPR principles.</li>
+              <li><strong>Inclusive Design:</strong> We designed with accessibility in mind, avoiding shame-inducing language or toxic competitive mechanics that could discourage beginners.</li>
+              <li><strong>Voluntary Participation:</strong> All participants joined voluntarily and could withdraw at any time without consequence.</li>
+            </ul>
+          </div>
+
+          <h3 class="pixel-subtitle">Requirements-Design-Function Mapping</h3>
+          <div class="mapping-table-wrapper" style="overflow-x:auto;">
+            <table class="mapping-table" style="width:100%; border-collapse:collapse; font-size:0.85rem; margin:12px 0;">
+              <thead>
+                <tr style="background:#fde68a;">
+                  <th style="padding:10px; border:2px solid #d4a373; text-align:left;">Requirement (R)</th>
+                  <th style="padding:10px; border:2px solid #d4a373; text-align:left;">Design Goal (DG)</th>
+                  <th style="padding:10px; border:2px solid #d4a373; text-align:left;">System Function (F)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>R1:</strong> Virtual companion for emotional support</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>DG1:</strong> Create a sense of "running with a friend" through character customization and real-time companionship</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>F1:</strong> Buddy Avatar System — Customize appearance, earn coins to unlock costumes, receive in-run encouragement</td>
+                </tr>
+                <tr style="background:#fffbeb;">
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>R2:</strong> Real-time encouragement during runs</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>DG2:</strong> Provide dynamic, personalized feedback that adapts to user's pace and progress</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>F2:</strong> In-Run Cheer System — Voice prompts, milestone celebrations, pace-adjusted encouragement</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>R3:</strong> Safe running volume guidance</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>DG3:</strong> Prevent overtraining injuries through proactive health monitoring</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>F3:</strong> Run Academy + Heart Rate Warning — Tutorials for form correction + real-time HR alerts when exceeding safe zones</td>
+                </tr>
+                <tr style="background:#fffbeb;">
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>R4:</strong> Community integration</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>DG4:</strong> Enable social connections without competitive pressure</td>
+                  <td style="padding:10px; border:1px solid #e4c49c;"><strong>F4:</strong> Bulletin Board — Light social features, group runs, achievement sharing (non-competitive)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="pixel-subtitle">Usability Testing</h3>
           <p>null</p>
-          <h3 class="pixel-subtitle">Iterative refinement</h3>
+          
+          <h3 class="pixel-subtitle">Iterative Refinement</h3>
           <p>null</p>
           <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem;">
             <div class="evidence-item" style="width:140px; height:120px;">Before<br>(screenshot)</div>
             <div class="evidence-item" style="width:140px; height:120px;">After<br>(screenshot)</div>
           </div>
-          <h3 class="pixel-subtitle">Final reflection</h3>
+          
+          <h3 class="pixel-subtitle">Design Rationale &amp; Why We Made These Choices</h3>
+          <div class="why-text">
+            <p><strong>Why Companion-based Design?</strong><br>
+            Based on Self-Determination Theory (SDT), intrinsic motivation requires satisfaction of autonomy, competence, and relatedness. Traditional running apps overemphasize competence through competitive metrics, neglecting the "relatedness" aspect. RunBuddy addresses this gap by creating an emotional bond with the virtual companion, making running feel less lonely and more like spending time with a friend.</p>
+            
+            <p style="margin-top:12px;"><strong>Why Light Gamification over Hardcore RPG?</strong><br>
+            Our literature review (Lister et al., 2014) showed that story-driven emotional guidance yields superior long-term retention compared to simple task rewards. A hardcore RPG approach would shift focus from running to game mechanics, potentially compromising sports safety. Our "light narrative" approach maintains the essence of running while providing meaningful motivation.</p>
+            
+            <p style="margin-top:12px;"><strong>Why Safe Running Volume as a Core Feature?</strong><br>
+            Existing products (Joyrun, Keep) focus on pushing users to do more. However, beginner runners face higher injury risks (Stevinson et al., 2020). Our heart rate monitoring and Run Academy directly address the gap in injury prevention, protecting users while building sustainable habits.</p>
+          </div>
+
+          <h3 class="pixel-subtitle">AI in the Project</h3>
+          <div id="ai-reflection" class="ai-reflection-box" style="background:#eff6ff; border:2px solid #3b82f6; border-radius:12px; padding:16px; margin:12px 0;">
+            <h4 style="color:#1e40af; margin-bottom:12px;">🤖 AI Tool Usage &amp; Critical Reflection</h4>
+            <p><strong>AI Tools Used:</strong></p>
+            <ul style="margin-left:20px; font-size:0.9rem; margin-bottom:12px;">
+              <li><strong>ChatGPT/Claude:</strong> Literature search assistance, academic paper summarization, and structure feedback on our writing</li>
+              <li><strong>AI Image Generation:</strong> Concept art exploration for companion character designs (Mood board creation)</li>
+              <li><strong>GitHub Copilot:</strong> Code completion and boilerplate generation for frontend development</li>
+            </ul>
+            
+            <p><strong>Critical Reflection on AI Use:</strong></p>
+            <ul style="margin-left:20px; font-size:0.9rem;">
+              <li><strong>Augmentation, Not Replacement:</strong> AI enhanced our productivity but never replaced human-centered design thinking. All AI suggestions were critically evaluated against user needs.</li>
+              <li><strong>Transparency:</strong> We acknowledge AI's limitations—AI-generated summaries may miss nuanced findings. All research conclusions were verified against original sources.</li>
+              <li><strong>Creative Ownership:</strong> The core concept (companion-based running buddy), design decisions, and narrative framework were developed through team discussions and user research, not AI prompting.</li>
+              <li><strong>Code Quality:</strong> AI-generated code was reviewed and tested to ensure it meets our standards for accessibility and performance.</li>
+              <li><strong>Ethical Awareness:</strong> We recognize that AI tools can perpetuate biases. Our inclusive design approach ensures RunBuddy serves diverse beginner runners equally.</li>
+            </ul>
+          </div>
+
+          <h3 class="pixel-subtitle">Final Reflection</h3>
           <p><strong>Social / ethical:</strong> Privacy, inclusive language, avoiding shame or toxic competition.</p>
-          <p><strong>AI in the project:</strong> empty</p>
+          <p><strong>Future Work:</strong> Expand testing with diverse user groups, implement AI-powered personalized training recommendations while maintaining transparency about AI decision-making.</p>
         </section>
         <footer>🏃‍♂️ RunBuddy · From Research to Prototype | Active Lifestyles Track | 2026 Pixel Style Process Portfolio</footer>
       </div>

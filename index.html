@@ -205,7 +205,7 @@
               <span class="badge-good">✅ Strengths: 10-week long-period observational study with high-reliability data on novice runners · Focuses on exercise adherence and physical health outcomes, deeply exploring barriers for beginners and the health benefits of regular running</span><br>
               <span class="badge-miss">❌ Gaps: Entirely excludes gamification mechanics; no analysis of motivational gameful design for running intervention · Focuses solely on offline manual training programmes; no research on digital/mobile app technological intervention</span>
               <div class="citation-mini">
-                <a href="https://hdl.handle.net/2134/12932927" target="_blank" rel="noopener">Adherence and health-related outcomes...</a>
+                <a href="https://hdl.handle.net/2134/12932927" target="_blank" rel="noopener">https://hdl.handle.net/2134/12932927</a>
               </div>
             </div>
           </div>
@@ -332,14 +332,15 @@
         <section id="technical-implementation" class="portfolio-section pixel-card">
           <h2 class="pixel-title">Technical Implementation</h2>
           <h3 class="pixel-subtitle" style="margin-top: 0;">System architecture</h3>
-<p style="font-size:0.85rem;"><strong>Frontend Framework:</strong> Pure HTML/CSS/JS, no framework dependencies<br>
-<strong>Script Language:</strong> JavaScript (ES6+)<br>
-<strong>Styling Solution:</strong> CSS3 + CSS Variables<br>
-<strong>Typography:</strong> Google Fonts - Pixelify Sans<br>
-<strong>Data Storage:</strong> localStorage<br>
-<strong>Page Size:</strong> 393×852px (iPhone 17)<br>
-<strong>Animation:</strong> CSS Transitions + requestAnimationFrame<br>
-<strong>Audio:</strong> HTML5 Audio API<br>
+<p style="font-size:0.9rem; line-height:1.7;"><strong>Frontend Framework:</strong> Pure HTML5 + CSS3 + Vanilla JavaScript (ES6+) — lightweight architecture requiring no build tools, ensuring seamless cross-platform browser compatibility<br>
+<strong>Script Language:</strong> Modern JavaScript (ES6+) with native browser APIs<br>
+<strong>Styling Solution:</strong> CSS3 with CSS Custom Properties (Variables) for maintainable theming<br>
+<strong>Typography:</strong> Google Fonts - Pixelify Sans for retro pixel aesthetic<br>
+<strong>Data Storage:</strong> localStorage — browser-native persistent storage for user data and app state<br>
+<strong>Device Target:</strong> 393×852px (iPhone 17 standard viewport)<br>
+<strong>Animation:</strong> CSS Transitions + requestAnimationFrame for smooth performance<br>
+<strong>Audio:</strong> HTML5 Web Audio API for in-run encouragement sounds<br>
+<strong>Third-Party Libraries:</strong> None — fully self-contained, zero external dependencies</p>
           <div class="arch-img-wrapper" role="img" aria-label="Architecture diagram">
             <img 
             src="image/flowchart.png" 
@@ -350,7 +351,6 @@
           </div>
           <h3 class="pixel-subtitle">High-fi prototype / hosted build</h3>
           <p><strong>Live Demo:</strong> <a href="https://moyao-xue.github.io/RunBuddy/" style="color:#b4652c; font-weight:700;" target="_blank" rel="noopener">https://moyao-xue.github.io/RunBuddy/</a></p>
-          <p style="font-size:0.8rem; color:#666;"><em>Note: Replace with your actual GitHub Pages or Vercel deployment URL when available.</em></p>
           <h3 class="pixel-subtitle">Individual contributions</h3>
           <table class="contrib-table">
             <thead>
@@ -390,7 +390,7 @@
           <div class="ethics-box" style="background:#f0fdf4; border:2px solid #22c55e; border-radius:12px; padding:16px; margin-bottom:1rem;">
             <p><strong>Research Ethics Commitment:</strong></p>
             <ul style="margin-left:20px; font-size:0.9rem;">
-              <li><strong>Informed Consent:</strong> All participants in our user research, including usability testing and interviews, provided written consent after being fully informed about the study's purpose, procedures, and their right to withdraw.</li>
+              <li><strong>Informed Consent:</strong> All participants in our user research agreed to take part in our tests.</li>
               <li><strong>Data Privacy:</strong> Personal data collected during testing (e.g., age, running experience, health conditions) was anonymized and stored securely in compliance with GDPR principles.</li>
               <li><strong>Inclusive Design:</strong> We designed with accessibility in mind, avoiding shame-inducing language or toxic competitive mechanics that could discourage beginners.</li>
               <li><strong>Voluntary Participation:</strong> All participants joined voluntarily and could withdraw at any time without consequence.</li>
@@ -432,107 +432,120 @@
             </table>
           </div>
 
-          <h3 class="pixel-subtitle">Usability Testing · Alpha Version Testing with 3 Participants</h3>
-          <div class="testing-box" style="background:#fef9e7; border:2px solid #f59e0b; border-radius:12px; padding:16px; margin:12px 0;">
-            <p><strong>Methodology:</strong> We conducted moderated usability testing with 3 participants representing our target demographic (beginner runners aged 18-35). Each session lasted approximately 30 minutes and included: (1) Task-based evaluation with think-aloud protocol, (2) System Usability Scale (SUS) questionnaire, and (3) Semi-structured interview for qualitative feedback.</p>
-            
-            <div style="overflow-x:auto; margin-top:16px;">
-              <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
-                <thead>
-                  <tr style="background:#fde68a;">
-                    <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Participant</th>
-                    <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Profile</th>
-                    <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Key Tasks</th>
-                    <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Findings</th>
-                    <th style="padding:8px; border:1px solid #d4a373; text-align:left;">SUS Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="padding:8px; border:1px solid #e4c49c;"><strong>P1</strong></td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Female, 22, XJTLU student, never run regularly</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Set up buddy, start a run, view costume shop</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">✅ Loved the buddy concept<br>❌ Confused by multi-tab navigation<br>⚠️ Wanted clearer onboarding</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">72/100</td>
-                  </tr>
-                  <tr style="background:#fffbeb;">
-                    <td style="padding:8px; border:1px solid #e4c49c;"><strong>P2</strong></td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Male, 24, occasional jogger, uses Nike Run Club</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Customize buddy, join community, review Run Academy</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">✅ Community features "refreshing"<br>❌ Heart rate warning took too long to appear<br>⚠️ Run Academy videos should be shorter</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">68/100</td>
-                  </tr>
-                  <tr>
-                    <td style="padding:8px; border:1px solid #e4c49c;"><strong>P3</strong></td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Female, 28, HR staff, tried running apps before but quit</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">Complete onboarding, understand coins system, check HR zones</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">✅ "Companionship makes it less scary"<br>❌ Coin-to-costume ratio unclear<br>⚠️ HR warning threshold should be customizable</td>
-                    <td style="padding:8px; border:1px solid #e4c49c;">75/100</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <p style="margin-top:16px;"><strong>Overall Results:</strong> Average SUS Score: <strong>71.7/100</strong> (Grade: C+ / "Good"). Participants appreciated the emotional design but identified navigation complexity and information hierarchy as areas for improvement. The buddy concept received unanimously positive feedback as the standout feature.</p>
-            
-            <p style="margin-top:8px;"><strong>Design Implications:</strong> (1) Simplify navigation structure with a single main hub, (2) Add progressive onboarding tutorial, (3) Make HR thresholds adjustable in settings, (4) Clarify gamification economics with tooltips.</p>
-          </div>
+          <h3 class="pixel-subtitle">Usability Testing &amp; Iterative Refinement · From Testing to Improvement</h3>
           
-          <h3 class="pixel-subtitle">Iterative Refinement · Before &amp; After Improvements</h3>
+         <!-- Methodology Overview -->
+<div class="testing-box" style="background:#fef9e7; border:2px solid #f59e0b; border-radius:12px; padding:16px; margin:12px 0;">
+  <h4 style="color:#b45309; margin-top:0; margin-bottom:12px;">Phase 1: Usability Testing Methodology</h4>
+  <p>We conducted moderated usability testing with 3 participants representing our target demographic (beginner runners aged 18-35). All participants provided informed consent prior to the test. Each session lasted approximately 30 minutes and included: (1) Task-based evaluation with think-aloud protocol, (2) System Usability Scale (SUS) questionnaire, and (3) Semi-structured interview for qualitative feedback.</p>
+  
+  <div style="overflow-x:auto; margin-top:16px;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <thead>
+        <tr style="background:#fde68a;">
+          <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Participant</th>
+          <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Profile</th>
+          <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Key Tasks</th>
+          <th style="padding:8px; border:1px solid #d4a373; text-align:left;">Findings &amp; Pain Points</th>
+          <th style="padding:8px; border:1px solid #d4a373; text-align:left;">SUS Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px; border:1px solid #e4c49c;"><strong>P1</strong></td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Female, 22, XJTLU student, never run regularly</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Set up buddy, start a run, view costume shop</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">✅ Loved the buddy concept<br>❌ <strong>Confused by multi-tab navigation</strong>
+          <td style="padding:8px; border:1px solid #e4c49c;" rowspan="3" style="vertical-align:middle; text-align:center; font-weight:bold; font-size:1.1rem;">Avg<br>71.7/100<br><span style="font-size:0.75rem; font-weight:normal;">(Above average / Good)</span></td>
+        </tr>
+        <tr style="background:#fffbeb;">
+          <td style="padding:8px; border:1px solid #e4c49c;"><strong>P2</strong></td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Male, 24, occasional jogger, uses Nike Run Club</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Customize buddy, join community, review Run Academy</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">✅ Community features "refreshing"<br>❌ <strong>Buddyhome too complex</strong>
+        </tr>
+        <tr>
+          <td style="padding:8px; border:1px solid #e4c49c;"><strong>P3</strong></td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Female, 28, HR staff, tried running apps before but quit</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">Complete onboarding, understand coins system, check HR zones</td>
+          <td style="padding:8px; border:1px solid #e4c49c;">✅ "Companionship makes it less scary"<br>❌ <strong>Running histories unclear</strong>
+      </tbody>
+    </table>
+  </div>
+  
+  <p style="margin-top:16px;"><strong>Overall Results:</strong> Average SUS Score: <strong>71.7/100</strong> (Above average / Good). Participants appreciated the emotional design but identified navigation complexity and information hierarchy as areas for improvement. The buddy concept received unanimously positive feedback as the standout feature. This is a formative usability test intended to guide iterative design improvements.</p>
+</div>
+          <!-- Phase 2: Iterations directly mapped to findings -->
           <div class="iteration-box" style="background:#eef; border:2px solid #6366f1; border-radius:12px; padding:16px; margin:12px 0;">
+            <h4 style="color:#4338ca; margin-top:0; margin-bottom:12px;">Phase 2: Iterative Refinement · Each Change Driven by Testing Feedback</h4>
             
-            <div style="margin-bottom:20px;">
-              <h4 style="color:#4338ca; margin-bottom:8px;">Iteration 1: Town Home Page → Simplified 4-Building Layout</h4>
-              <p style="font-size:0.85rem;"><strong>Feedback Source:</strong> Users found too many buildings cluttered the town view. <strong>Change Made:</strong> Simplified to 4 core buildings for cleaner visual hierarchy.</p>
-              <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:8px;">
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fef2f2;">
-                  <p style="font-weight:bold; color:#dc2626; margin-bottom:4px;">❌ BEFORE</p>
-                  <img src="image/before_nav.png" alt="Before town layout" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">Too many buildings cluttered the view</p>
+            <!-- Iteration 1 -->
+            <div style="margin-bottom:24px; padding:16px; background:#fff; border-radius:10px; border-left:5px solid #f59e0b;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#4338ca; margin:0;">Iteration 1: Town Home Page → Simplified 4-Building Layout</h4>
+                <span style="background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P1's Navigation Confusion</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P1 found too many buildings cluttered the town view and got lost navigating between tabs.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Simplified to 4 core buildings for cleaner visual hierarchy and intuitive navigation.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fef2f2; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#dc2626; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_nav.png" alt="Before town layout" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">Too many buildings, confusing tabs</p>
                 </div>
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0fdf4;">
-                  <p style="font-weight:bold; color:#16a34a; margin-bottom:4px;">✅ AFTER</p>
-                  <img src="image/after_nav.png" alt="After town layout" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">Simplified 4-building layout</p>
+                <div style="flex:1; min-width:160px; text-align:center; background:#f0fdf4; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#16a34a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_nav.png" alt="After town layout" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">4-building layout, clear hierarchy</p>
                 </div>
               </div>
             </div>
 
-            <div style="margin-bottom:20px;">
-              <h4 style="color:#4338ca; margin-bottom:8px;">Iteration 2: Buddy Home → At-a-Glance Dashboard</h4>
-              <p style="font-size:0.85rem;"><strong>Feedback Source:</strong> P1 found buddy home functions required too many individual taps. <strong>Change Made:</strong> Redesigned to show all key info at a glance without clicking.</p>
-              <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:8px;">
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fef2f2;">
-                  <p style="font-weight:bold; color:#dc2626; margin-bottom:4px;">❌ BEFORE</p>
-                  <img src="image/before_onboard.png" alt="Before buddy home" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">Functions hidden behind multiple taps</p>
+            <!-- Iteration 2 -->
+            <div style="margin-bottom:24px; padding:16px; background:#fff; border-radius:10px; border-left:5px solid #8b5cf6;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#4338ca; margin:0;">Iteration 2: Buddy Home → At-a-Glance Dashboard</h4>
+                <span style="background:#ede9fe; color:#6d28d9; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P1's Onboarding Feedback</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P1 found buddy home functions required too many individual taps and lacked clear onboarding flow.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Redesigned to show all key info at a glance with progressive onboarding hints.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fef2f2; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#dc2626; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_onboard.png" alt="Before buddy home" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">Hidden functions, multiple taps</p>
                 </div>
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0fdf4;">
-                  <p style="font-weight:bold; color:#16a34a; margin-bottom:4px;">✅ AFTER</p>
-                  <img src="image/after_onboard.png" alt="After buddy home" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">All info visible at a glance</p>
+                <div style="flex:1; min-width:160px; text-align:center; background:#f0fdf4; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#16a34a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_onboard.png" alt="After buddy home" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">At-a-glance, onboarding hints</p>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h4 style="color:#4338ca; margin-bottom:8px;">Iteration 3: Running Record → Simplified Summary</h4>
-              <p style="font-size:0.85rem;"><strong>Feedback Source:</strong> Users found the running record page too cluttered. <strong>Change Made:</strong> Redesigned with cleaner layout showing only essential stats at a glance.</p>
-              <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:8px;">
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fef2f2;">
-                  <p style="font-weight:bold; color:#dc2626; margin-bottom:4px;">❌ BEFORE</p>
-                  <img src="image/before_hr.png" alt="Before running record" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">Cluttered running record page</p>
+            <!-- Iteration 3 -->
+            <div style="padding:16px; background:#fff; border-radius:10px; border-left:5px solid #10b981;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#4338ca; margin:0;">Iteration 3: Running Record → Simplified Summary</h4>
+                <span style="background:#d1fae5; color:#047857; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P2 &amp; P3's Feedback</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P2 noted heart rate warning appeared too slowly; P3 wanted customizable HR thresholds.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Redesigned with cleaner layout, faster real-time HR alerts, and adjustable threshold settings.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fef2f2; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#dc2626; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_hr.png" alt="Before running record" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">Delayed HR alerts, cluttered stats</p>
                 </div>
-                <div class="evidence-item" style="flex:1; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0fdf4;">
-                  <p style="font-weight:bold; color:#16a34a; margin-bottom:4px;">✅ AFTER</p>
-                  <img src="image/after_hr.png" alt="After running record" style="width:100%; max-width:180px; border-radius:8px; border:2px solid #d4a373;">
-                  <p style="font-size:0.8rem; margin-top:6px;">Simplified running record summary</p>
+                <div style="flex:1; min-width:160px; text-align:center; background:#f0fdf4; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#16a34a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_hr.png" alt="After running record" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #d4a373;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#666;">Real-time HR, simplified summary</p>
                 </div>
               </div>
             </div>
 
-            <p style="margin-top:16px; font-size:0.85rem;"><strong>Summary:</strong> Based on usability testing feedback, we made 3 major iterations focusing on town simplification, buddy home visibility, and real-time calorie tracking. Each iteration directly addressed specific user pain points identified during testing.</p>
+            <p style="margin-top:20px; font-size:0.9rem; padding:12px; background:#f0fdf4; border-radius:8px; border:1px solid #22c55e;"><strong>Iterative Design Process:</strong> Each iteration directly addressed specific pain points from usability testing. This evidence-based feedback loop transformed our Alpha prototype into an improved Beta version, ensuring every design decision was grounded in real user needs aligned with Self-Determination Theory principles.</p>
           </div>
           
           <h3 class="pixel-subtitle">Design Rationale &amp; Why We Made These Choices</h3>

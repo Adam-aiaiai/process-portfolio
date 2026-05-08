@@ -919,16 +919,42 @@ header {
 /* 图片网格 */
 .evidence-grid,
 .sketch-row {
-  justify-content: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
 }
-.evidence-item img,
-.sketch-row img {
+.evidence-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f0dc;
+  border: 2px solid #d4a373;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+.evidence-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid #b48c48;
   transition: transform 0.2s ease;
 }
-.evidence-item img:hover,
-.sketch-row img:hover {
+.evidence-item img:hover {
   transform: scale(1.05);
+}
+.evidence-item p {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* 用户调查图片网格 - 固定高度确保一致 */
+.evidence-grid[style*="grid-template-columns: 1fr 1fr"] .evidence-item img {
+  height: auto;
+  max-height: 300px;
 }
 
 /* 按钮 */

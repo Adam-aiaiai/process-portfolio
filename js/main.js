@@ -170,10 +170,14 @@ const waitForScene = setInterval(() => {
 // 左侧时间线滚动高亮功能
 // =========================================
 function initTimelineScroll() {
+  const timelineSidebar = document.getElementById('timelineSidebar');
+  const timelineToggle = document.getElementById('timelineToggle');
   const timelineItems = document.querySelectorAll('.timeline-item, .timeline-subitem');
   const sections = [];
 
-  if (timelineItems.length === 0) return;
+  if (!timelineSidebar || timelineItems.length === 0) return;
+  if (timelineSidebar.dataset.timelineInit === '1') return;
+  timelineSidebar.dataset.timelineInit = '1';
 
   // 收集所有时间线对应的 section
   timelineItems.forEach(item => {
@@ -210,6 +214,21 @@ function initTimelineScroll() {
     }
   }
 
+  const syncToggle = (collapsed) => {
+    timelineSidebar.classList.toggle('is-collapsed', collapsed);
+    if (!timelineToggle) return;
+    timelineToggle.textContent = collapsed ? '▶' : '◀';
+    timelineToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    timelineToggle.setAttribute('aria-label', collapsed ? 'Expand timeline' : 'Collapse timeline');
+  };
+
+  if (timelineToggle) {
+    timelineToggle.addEventListener('click', () => {
+      syncToggle(!timelineSidebar.classList.contains('is-collapsed'));
+    });
+  }
+
+  syncToggle(false);
   window.addEventListener('scroll', highlightTimeline, { passive: true });
   highlightTimeline();
 }
@@ -243,19 +262,13 @@ function initPortfolioReadingMode() {
   portfolio.dataset.readingReady = '1';
   portfolio.classList.add('reading-mode');
 
-  const accentPalette = ['#b4652c', '#0f766e', '#c2410c', '#6b8e23', '#7c5c2d'];
+  const accentPalette = ['#b8743f', '#b8743f', '#b8743f', '#b8743f', '#b8743f'];
   const sectionMeta = [];
 
-  const toolbar = document.createElement('div');
-  toolbar.className = 'reading-toolbar';
-  toolbar.innerHTML = [
-    '<button type="button" class="toolbar-chip" data-action="open-all">OPEN ALL</button>',
-    '<button type="button" class="toolbar-chip" data-action="close-all">CLOSE ALL</button>'
-  ].join('');
   const dock = document.createElement('div');
   dock.className = 'reading-dock';
   nav.parentNode.insertBefore(dock, nav);
-  dock.append(toolbar, nav);
+  dock.append(nav);
 
   const navItems = Array.from(nav.querySelectorAll('.nav-item[href^="#"]'));
 
@@ -384,44 +397,8 @@ function initPortfolioReadingMode() {
     entry.toggle.textContent = isOpen ? '-' : '+';
   };
 
-  const openExclusive = (targetEntry, shouldScroll = false) => {
-    sectionMeta.forEach((entry) => {
-      setSectionState(entry, entry === targetEntry);
-    });
-    setNavActive(targetEntry.section.id);
-    if (shouldScroll) {
-      requestAnimationFrame(() => {
-        targetEntry.section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-  };
-
-  const toggleEntry = (targetEntry, shouldScroll = false) => {
-    const isOpen = targetEntry.section.classList.contains('is-open');
-    if (isOpen) {
-      setSectionState(targetEntry, false);
-      setNavActive(targetEntry.section.id);
-    } else {
-      openExclusive(targetEntry, shouldScroll);
-    }
-  };
-
   sectionMeta.forEach((entry) => {
-    const head = entry.section.querySelector('.reading-head');
-
-    if (head) {
-      head.addEventListener('click', (event) => {
-        if (event.target.closest('a, button, input, textarea, select, iframe')) {
-          return;
-        }
-        toggleEntry(entry);
-      });
-    }
-
-    entry.toggle.addEventListener('click', (event) => {
-      event.stopPropagation();
-      toggleEntry(entry);
-    });
+    setSectionState(entry, true);
   });
 
   navItems.forEach((item) => {
@@ -431,27 +408,17 @@ function initPortfolioReadingMode() {
 
     item.addEventListener('click', (event) => {
       event.preventDefault();
-      openExclusive(targetEntry, true);
+      setNavActive(targetEntry.section.id);
+      requestAnimationFrame(() => {
+        targetEntry.section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      if (event.detail > 0) {
+        item.blur();
+      }
     });
   });
 
-  toolbar.addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-action]');
-    if (!button) return;
-
-    const action = button.dataset.action;
-    if (action === 'open-all') {
-      sectionMeta.forEach((entry) => setSectionState(entry, true));
-      setNavActive(sectionMeta[0] ? sectionMeta[0].section.id : null);
-    }
-    if (action === 'close-all') {
-      sectionMeta.forEach((entry) => setSectionState(entry, false));
-      setNavActive(null);
-    }
-  });
-
-  sectionMeta.forEach((entry) => setSectionState(entry, false));
-  setNavActive(null);
+  setNavActive(sectionMeta[0] ? sectionMeta[0].section.id : null);
 
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -538,6 +505,35 @@ function initPortfolioReadingMode() {
 
   initPaperFlipCards();
 
+  const initPersonaFlipCards = () => {
+    const personaCards = Array.from(document.querySelectorAll('.persona-flip-card'));
+    if (!personaCards.length) return;
+
+    personaCards.forEach((card) => {
+      if (card.dataset.flipReady === '1') return;
+      card.dataset.flipReady = '1';
+
+      const toggleFlip = () => {
+        const flipped = card.classList.toggle('is-flipped');
+        card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+      };
+
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a')) return;
+        toggleFlip();
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleFlip();
+        }
+      });
+    });
+  };
+
+  initPersonaFlipCards();
+
   const zoomTargets = Array.from(document.querySelectorAll(
     '#hero .hero-img, .portfolio-pixel img, #footerStyle .logo-gif'
   )).filter((img) => !img.closest('a') && !img.dataset.noZoom);
@@ -548,6 +544,64 @@ function initPortfolioReadingMode() {
     img.classList.add('zoomable-image');
     img.addEventListener('click', () => openZoom(img));
   });
+}
+
+function initHeroTitleTyping() {
+  const title = document.querySelector('.page-title');
+  const finalScene = document.querySelector('.final-scene');
+
+  if (!title || title.dataset.typingBound === '1') return;
+  title.dataset.typingBound = '1';
+
+  const fullText = title.dataset.fullText || title.textContent.trim() || 'RunBuddy';
+  title.dataset.fullText = fullText;
+
+  const playTyping = () => {
+    const chars = Array.from(fullText);
+    let index = 0;
+    const startDelay = 320;
+    const charDelay = 190;
+    const finishDelay = 220;
+
+    title.textContent = '';
+    title.classList.add('is-typing');
+
+    const typeNext = () => {
+      title.textContent = chars.slice(0, index + 1).join('');
+
+      if (index === 0) {
+        document.documentElement.classList.remove('runbuddy-title-pending');
+      }
+
+      index += 1;
+
+      if (index < chars.length) {
+        window.setTimeout(typeNext, index === chars.length - 1 ? finishDelay : charDelay);
+      }
+    };
+
+    window.setTimeout(typeNext, startDelay);
+  };
+
+  if (finalScene && finalScene.classList.contains('show')) {
+    playTyping();
+    return;
+  }
+
+  if (!finalScene) {
+    title.textContent = fullText;
+    document.documentElement.classList.remove('runbuddy-title-pending');
+    return;
+  }
+
+  const observer = new MutationObserver(() => {
+    if (finalScene.classList.contains('show')) {
+      observer.disconnect();
+      playTyping();
+    }
+  });
+
+  observer.observe(finalScene, { attributes: true, attributeFilter: ['class'] });
 }
 
 const portfolioInterval = setInterval(() => {
@@ -649,4 +703,5 @@ window.onload = function () {   // 【新增】启动 Loading 点
   initPortfolioReadingMode();
   initScrollProgress();
   initTimelineScroll();
+  initHeroTitleTyping();
 };

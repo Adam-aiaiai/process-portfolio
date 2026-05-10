@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="theme-color" content="#d1cfc7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="RunBuddy - Process Portfolio showcasing a gamified running companion app for beginners">
+  <title>RunBuddy - Process Portfolio</title>
+  <script>
+    document.documentElement.classList.add('runbuddy-title-pending');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="image/Stroked Image (1).png" type="image/png">
+</head>
+<body>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <img src="image/running.gif" alt="loading" class="loading-gif">
+      <p class="loading-text" id="loadingText">Loading</p>
+    </div>
+  </div>
+
+ 
+  <div class="exhibition-wrapper">
+    <div class="ticket-guide">
+      <p>Tap or hover the ticket</p>
+      <div class="arrow-down"></div>
+    </div>
+    <div class="ambient-light"></div>
+
+    <div class="ticket-container" id="ticket">
+        <article class="ticket-main">
+        <div class="ticket-content">
+            <header class="ticket-header">
+            <span class="eyebrow">A/W 2026</span>
+            <span class="serial">No. 004912</span>
+            </header>
+
+            <div class="ticket-body">
+            <h1 class="title">LITTLE<br />TOWN</h1>
+            <p class="subtitle">Exclusive Preview & Invitation</p>
+            </div>
+
+            <footer class="ticket-footer">
+            <div class="info-block">
+                <span class="label">Date</span>
+                <span class="value" id="today-date"></span>
+            </div>
+            <div class="info-block">
+                <span class="label">Time</span>
+                <span class="value" id="today-time"></span>
+            </div>
+            <div class="info-block">
+                <span class="label">Admit</span>
+                <span class="value">ONE</span>
+            </div>
+            </footer>
+        </div>
+        <div class="perforation-line"></div>
+        </article>
+
+        <aside class="ticket-stub">
+        <div class="foil-seal"></div>
+        <div class="barcode"></div>
+        <p class="stub-text">VIP ACCESS</p>
+        </aside>
+    </div>
+  </div>
+
+  <div class="sky">
+    <div class="sky-center-text">Welcome to Our Little Town</div>
+  </div>
+
+ 
+  <div class="scroll-progress-bar" id="scrollProgressBar">
+    <div class="scroll-progress-fill" id="scrollProgressFill"></div>
+    <div class="scroll-progress-tooltip" id="scrollProgressTooltip">0%</div>
+  </div>
+
+  <div class="final-scene">
+    <header class="d-flex justify-between align-center w-100">
+      <nav class="dropdown-nav closed">
+        <a href="#hero">
+          <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/home-icon.png" alt="home-icon">
+          Home
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero-bg"></div>
+      <section id="hero">
+        <div class="page-title" data-full-text="RunBuddy">RunBuddy</div>
+        <img class="hero-img" src="image/Group 4 (6).png" alt="flat image" data-no-zoom="1" draggable="false">
+        <div class="bg-mask"></div>
+      </section>
+
+     
+  <div class="timeline-sidebar" id="timelineSidebar">
+    <button type="button" class="timeline-toggle" id="timelineToggle" aria-controls="timelineSidebar" aria-expanded="true" aria-label="Collapse timeline">&lt;</button>
+    <div class="timeline-line"></div>
+    <a href="#motivation-research" class="timeline-item active" data-week="1">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 1<br>Motivation &amp; Research</span>
+    </a>
+    <a href="#user-requirements" class="timeline-item" data-week="2">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 2<br>User Requirements</span>
+    </a>
+    <a href="#ideation-alternatives" class="timeline-item" data-week="3-4">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 3-4<br>Ideation &amp; Alternatives</span>
+    </a>
+    <div class="timeline-subitems">
+      <a href="#lowfi" class="timeline-subitem" data-week="5">
+        <div class="timeline-dot-small"></div>
+        <span class="timeline-label-small">Low-fi · Week 5</span>
+      </a>
+      <a href="#highfi" class="timeline-subitem" data-week="6">
+        <div class="timeline-dot-small"></div>
+        <span class="timeline-label-small">High-fi · Week 6</span>
+      </a>
+    </div>
+    <a href="#technical-implementation" class="timeline-item" data-week="8-9">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 8-9<br>Technical Implementation</span>
+    </a>
+    <a href="#evaluation-reflection" class="timeline-item" data-week="10">
+      <div class="timeline-dot"></div>
+      <span class="timeline-label">Week 10<br>Evaluation &amp; Reflection</span>
+    </a>
+    <div class="timeline-subitems">
+      <a href="#ai-reflection" class="timeline-subitem" data-week="11">
+        <div class="timeline-dot-small"></div>
+        <span class="timeline-label-small">AI Reflection</span>
+      </a>
+    </div>
+  </div>
+
+  
+  <div class="portfolio-pixel">
+    <div class="pixel-header">
+      <h1>🎽 RUNBUDDY · Process Portfolio</h1>
+      <p>✦ Companion-based Gamified Running Buddy ✦ Beginner-friendly ✦ Community Co-creation </p>
+    </div>
+
+        <nav class="portfolio-nav">
+          <a href="#motivation-research" class="nav-item">Motivation & Research</a>
+          <a href="#user-requirements" class="nav-item">User Requirements</a>
+          <a href="#ideation-alternatives" class="nav-item">Ideation & Alternatives</a>
+          <a href="#technical-implementation" class="nav-item">Technical Implementation</a>
+          <a href="#evaluation-reflection" class="nav-item">Evaluation & Reflection</a>
+          <a href="#ai-reflection" class="nav-item">AI Reflection</a>
+          <a href="#references" class="nav-item">References</a>
+        </nav>
+
+        <section id="motivation-research" class="portfolio-section pixel-card" style="--section-accent: #b8743f;">
+          <h2 class="pixel-title">Motivation &amp; Research</h2>
+          <div class="pixel-subtitle">The Why · Motivation statement </div>
+          <div class="why-text">
+            We chose the "Active Lifestyles" track because we identified a critical gap in the running app market: while fitness apps proliferate, beginner runners remain underserved and often disengaged. Our team members have personally experienced the frustration of starting a running routine—feeling intimidated by professional metrics, isolated during solo runs, and discouraged by the lack of immediate positive feedback. Research confirms this pattern; according to Stevinson et al. (2020), novice runners face significant barriers including boredom, lack of motivation, and injury concerns that lead to high dropout rates within the first few weeks.<br><br>
+            Existing commercial products like Joyrun and Keep either overwhelm beginners with competitive leaderboards or fail to provide meaningful emotional engagement. Academic research (Şahin & Şener, 2025; Lister et al., 2014) demonstrates that companionship-based motivation and narrative-driven gamification yield superior long-term adherence compared to data-centric approaches. RunBuddy addresses this by creating a virtual running companion that transforms the solitary activity of running into an anticipated social experience. Our design philosophy centers on Self-Determination Theory (SDT), enhancing autonomy, competence, and relatedness to help beginners build sustainable active lifestyles without pressure or intimidation. We believe running should feel like spending time with a friend, not completing a performance evaluation.
+          </div>
+
+          <div class="pixel-subtitle" style="margin-top: 1.5rem;">The Gap · Four academic papers &amp; four commercial products</div>
+          <div class="gap-grid gap-grid--papers">
+            
+            <div class="paper-item">
+              <strong>📄 Run Together (Şahin &amp; Şener, 2025)</strong><br>
+              <span class="badge-good">✅ Strengths: <br>·Mixed-method research combining quantitative and qualitative data;<br>·Deeply explores social motivation mechanisms, confirming peer companionship boosts exercise adherence;<br>·Applies SDT framework to systematically analyse autonomy, competence, and relatedness in running</span><br>
+              <span class="badge-miss">❌ Gaps: <br>·Covers online running only, no offline/real-world outdoor adaptation;<br>·Lacks runner-specific validation, focusing on general fitness rather than the unique needs of runners;<br>·Fails to address targeted optimisation for endurance, outdoor conditions, or sport-specific behaviours.</span>
+              <div class="citation-mini">
+                <a href="https://doi.org/10.18848/1832-3669/CGP/v21i02/215-244" target="_blank" rel="noopener">DOI: 10.18848/1832-3669/CGP/v21i02/215-244</a>
+              </div>
+            </div>
+
+            
+            <div class="paper-item">
+              <strong>📄 Just a Fad? Gamification (Lister et al., 2014)</strong><br>
+              <span class="badge-good">✅ Strengths: <br>·Constructs a robust COM-B behaviour change model framework; <br>·Conducts in-depth narrative advocacy research, demonstrating that story-driven emotional guidance yields superior long-term retention over simple task rewards;<br>·Provides clear, evidence-based design principles for avoiding “empty gamification” and building intrinsically motivating systems.</span><br>
+              <span class="badge-miss">❌ Gaps: <br>·Case studies are outdated, misaligned with modern mobile UX and contemporary app design trends;<br>·Lacks runner-specific validation; <br>·Discusses general fitness gamification without targeted optimisation for endurance, outdoor conditions, or runner-specific needs</span>
+              <div class="citation-mini">
+                <a href="https://doi.org/10.2196/games.3413" target="_blank" rel="noopener">DOI: 10.2196/games.3413</a>
+              </div>
+            </div>
+
+            
+            <div class="paper-item">
+              <strong>📄 Smartphone games &amp; BCTs (Edwards et al., 2016)</strong><br>
+              <span class="badge-good">✅ Strengths: <br>·Completes systematic BCTs mapping, standardising motivational intervention tools for health apps;<br>·Provides credible real-world evidence via the mySugr case, bridging theory and commercial practice;<br>·Broad coverage and high academic authority as a systematic literature review</span><br>
+              <span class="badge-miss">❌ Gaps: <br>·All scenarios are limited to indoor personal fitness and individual health management;<br>·Completely excludes outdoor group running and collective sport contexts;<br>·The findings are not validated for dynamic, social, or location-based activities like running.</span>
+              <div class="citation-mini">
+                <a href="https://bmjopen.bmj.com/content/6/10/e012447.short" target="_blank" rel="noopener">BMJ Open, 6(10): e012447</a>
+              </div>
+            </div>
+
+            
+            <div class="paper-item">
+              <strong>📄 Beginner running programs (Stevinson et al., 2020)</strong><br>
+              <span class="badge-good">✅ Strengths: <br>·10-week long-period observational study with high-reliability data on novice runners;<br>·Focuses on exercise adherence and physical health outcomes, deeply exploring barriers for beginners and the health benefits of regular running;<br>·Provides clear evidence of the health benefits of regular running, grounded in longitudinal data.</span><br>
+              <span class="badge-miss">❌ Gaps: <br>·Entirely excludes gamification mechanics; <br>·No analysis of motivational gameful design for running intervention;<br>·Focuses solely on offline manual training programs; no research on digital/mobile app technological intervention</span>
+              <div class="citation-mini">
+                <a href="https://hdl.handle.net/2134/12932927" target="_blank" rel="noopener">https://hdl.handle.net/2134/12932927</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="gap-grid gap-grid--products">
+            <div class="product-item"><strong>🏅 Sigma (Joyrun competitor)</strong><br>✅ Ad-free/Beijing Sport University AI guidance/Campus social features<br>❌ Lack of advanced training/Underdeveloped community/GPS drift</div>
+            <div class="product-item"><strong>🏅 Joyrun</strong><br>✅ Active running groups/Online events/3D track<br>❌ Excessive ads/Location errors/Heart rate lag</div>
+            <div class="product-item"><strong>🏅 Keep</strong><br>✅ Structured courses/Hardware ecosystem/IP medals<br>❌ Data retention only 30 days/AI coach offline/Weak check-in incentives</div>
+            <div class="product-item"><strong>🏅 Huawei Health</strong><br>✅ High market share/Accurate health monitoring/Multi-device sync<br>❌ Poor cross-brand experience/Cluttered UI/Redundant features</div>
+          </div>
+          <p style="margin-top: 12px; font-size:0.85rem;"><strong>🎯 Key Findings：</strong> Existing products generally lack "deep gamification narrative", neglect emotional companionship for beginners and safe running volume guidance; social functions focus on competition rather than lightweight encouragement. RunBuddy will fill the gap of "companionship + in-time rewards + injury prevention mechanisms".</p>
+
+          <div class="pixel-subtitle" style="margin-top: 1.5rem;">The Stakeholders · Primary &amp; secondary users (personas)</div>
+          <div class="persona-row">
+            <div class="persona-card persona-flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="Flip Emily persona card">
+              <div class="persona-flip-inner">
+                <div class="persona-flip-face persona-flip-front">
+                  <div class="persona-image-stack">
+                    <img src="image/Emily.png" alt="Emily profile portrait" class="no-zoom">
+                    <img src="image/data_emily.png" alt="Emily profile data panel" class="no-zoom persona-data-emily">
+                  </div>
+                  <p class="persona-flip-hint">Click to flip</p>
+                </div>
+                <div class="persona-flip-face persona-flip-back">
+                  <h3>🌟 Emily · Beginner (Primary User)</h3>
+                  <p>21 years old, XJTLU student who wants to lose weight and relieve stress through running but has never persisted. Owns an Apple Watch but is intimidated by professional data. Likes cute things and costume collection.</p>
+                  <p><strong>Goals：</strong> Build habits with a low barrier to entry, gain companionship and positive feedback, and avoid sports injuries.<br>
+                  <strong>Needs：</strong> Minimalist interface, real-time encouragement from a cartoon companion, calories exchanged for costumes, safe route prompts, and non-competitive data display.</p>
+                </div>
+              </div>
+            </div>
+            <div class="persona-card persona-flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="Flip Mike persona card">
+              <div class="persona-flip-inner">
+                <div class="persona-flip-face persona-flip-front">
+                  <div class="persona-image-stack">
+                    <img src="image/Mike.png" alt="Mike profile portrait" class="no-zoom">
+                    <img src="image/data_mike.png" alt="Mike profile data panel" class="no-zoom">
+                  </div>
+                  <p class="persona-flip-hint">Click to flip</p>
+                </div>
+                <div class="persona-flip-face persona-flip-back">
+                  <h3>🏃 Mike · Senior Organizer (Secondary User)</h3>
+                  <p>33 years old, manager of a Suzhou running group (600 members), uses a Garmin watch, and is annoyed by Joyrun ads. Hopes to help beginners integrate more easily.</p>
+                  <p><strong>Goals：</strong> No ad interruptions, group event functions, and ad-free sharing.<br>
+                  <strong>Needs：</strong> Community hub and a bulletin board for light social features.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 8px;"><em>Product Impact: Emily drives cute companionship and simple guidance; Mike drives community events, forming a mutually supportive ecosystem.</em></p>
+        </section>
+
+        <section id="user-requirements" class="portfolio-section pixel-card" style="--section-accent: #c9854a;">
+          <h2 class="pixel-title">User Requirements</h2>
+          <div class="pixel-subtitle">User journey map · Pain points of target users</div>
+          <div style="text-align: center; margin: 1.5rem 0;">
+            <img src="image/userjourneymap.png" alt="User Journey Map" style="max-width: 100%; height: auto; border-radius: 16px; border: 4px solid #dfbf97; box-shadow: 6px 6px 0 rgba(0,0,0,0.15);">
+          </div>
+          <div class="journey-pixel">
+            📍 ① App Onboarding & Companion Setup → 😟 Worried (Overwhelmed by pro running data / Fear of being judged as a beginner)<br>
+            📍 ② First Run Preparation & Start → 😰 Anxious (Uncertainty about safe route selection / Fear of overtraining/injury)<br>
+            📍 ③ First Run Execution → 😊 Curious/Happy (Worry about losing pace / Concern about exceeding safe limits)<br>
+            📍 ④ Short-term Consistency (1-week habit building) → 😰 Tense (Difficulty maintaining daily routine / Boredom from repetitive runs)<br>
+            📍 ⑤ Long-term Habit & Community Integration → 🥳 Relieved/Excited (Fear of long-term boredom / Hesitation to join social interactions)<br>
+              🎯 <strong>RunBuddy Intervention：</strong> 💬 Community Groups + 🎤 In-Run Cheers + 📋 Personalized Health Plans
+          </div>
+          
+          <div class="requirements-list" style="margin: 1.5rem 0;">
+            <strong>Requirements list · Must-haves for a &ldquo;playful&rdquo; system</strong>
+            <ul style="margin-top: 12px; margin-left: 20px;">
+              <li><strong>[R1] Virtual Buddy Companionship</strong> — An immersive running partner. Nurture, customize, and bond with your buddy using coins earned through your efforts, turning fitness into a rewarding emotional experience.</li>
+              <li><strong>[R2] In-run encouragement</strong> — Provides real-time feedback during runs, offering dynamic responses such as prompts (which can be personalized by users) and milestone recognition to support users.</li>
+              <li><strong>[R3] Healthy Running Guidance</strong> — Run Academy provides web-based tutorials for beginner runners to correct improper running form. Additionally, a warning page will prompt the user if their heart rate exceeds safe thresholds during a run.</li>
+              <li><strong>[R4] Community Integration</strong> — Bulletin board for group events, achievement sharing, and light social features without competitive pressure.</li>
+            </ul>
+          </div>
+
+          <div class="pixel-subtitle">Evidence of life · 5 photos</div>
+          <p style="font-size:0.85rem; margin-bottom:12px;"><em>User interviews and site observations conducted throughout the research phase to understand beginner runners' pain points and needs.</em></p>
+          <div class="evidence-grid">
+            <div class="evidence-item">
+              <img src="image/evidenceoflife1.png" alt="Evidence of Life 1">
+              <p><strong>Interview:</strong> Remote interview via Tencent Meeting with an experienced running student about her running habits and app preferences.</p>
+            </div>
+            <div class="evidence-item">
+              <img src="image/evidenceoflife2.png" alt="Evidence of Life 2">
+              <p><strong>Interview:</strong> Remote interview via Tencent Meeting discussing challenges faced by beginners when starting a running routine.</p>
+            </div>
+            <div class="evidence-item">
+              <img src="image/evidenceoflife3.png" alt="Evidence of Life 3">
+              <p><strong>Interview:</strong> Remote interview via Tencent Meeting exploring what features would motivate users to keep running consistently.</p>
+            </div>
+            <div class="evidence-item">
+              <img src="image/evidenceoflife4.png" alt="Evidence of Life 4">
+              <p><strong>Site Observation:</strong> On-site observation at Wenyuan Playground, randomly approaching campus runners to understand their real experiences.</p>
+            </div>
+            <div class="evidence-item">
+              <img src="image/evidenceoflife5.png" alt="Evidence of Life 5">
+              <p><strong>Expert Interview:</strong> Interview with a running club manager to understand community needs and pain points in existing running apps.</p>
+            </div>
+          </div>
+
+          <div class="pixel-subtitle">User Survey Results · Initial User Validation</div>
+          <p style="font-size:0.85rem; margin-bottom:12px;"><em>We conducted an initial survey with 70+ respondents to validate our user research assumptions and prioritize feature development.</em></p>
+          <div class="evidence-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="evidence-item">
+              <img src="image/user_survey_part1.png" alt="User Survey Part 1">
+              <p><strong>Q8:</strong> Most Commonly Reported Gaps in Running App Experiences</p>
+            </div>
+            <div class="evidence-item">
+              <img src="image/user_survey_part2.png" alt="User Survey Part 2">
+              <p><strong>Q9:</strong> User Willingness to Try a Companion-Focused Running App</p>
+            </div>
+          </div>
+          
+        </section>
+
+        <section id="ideation-alternatives" class="portfolio-section pixel-card" style="--section-accent: #b8743f;">
+          <h2 class="pixel-title">Ideation &amp; Alternatives</h2>
+          <div class="pixel-subtitle">Crazy Eights · 8 rapid hand-drawn UI sketches</div>
+          <div class="sketch-row">
+            <div style="text-align: center;">
+              <img src="image/crazyeights1.jpg" alt="Crazy Eight 1" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #b8743f; box-shadow: 3px 3px 0 #b8743f;">
+            </div>
+            <div style="text-align: center;">
+              <img src="image/crazyeights2.jpg" alt="Crazy Eight 2" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #b8743f; box-shadow: 3px 3px 0 #b8743f;">
+            </div>
+            <div style="text-align: center;">
+              <img src="image/crazyeights3.jpg" alt="Crazy Eight 3" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #b8743f; box-shadow: 3px 3px 0 #b8743f;">
+            </div>
+            <div style="text-align: center;">
+              <img src="image/crazyeights4.jpg" alt="Crazy Eight 4" style="width: 100%; max-width: 140px; height: 100px; object-fit: cover; border-radius: 10px; border: 3px solid #b8743f; box-shadow: 3px 3px 0 #b8743f;">
+            </div>
+          </div>
+          <p style="margin-top: 12px; font-size: 0.85rem;"><em>Crazy Eights Method: Each team member created 8 sketches in 8 minutes (1 minute each), exploring diverse UI concepts including companion home screens, route tracking, in-run encouragement, and costume shops.</em></p>
+
+          <div class="pixel-subtitle" style="margin-top: 1.5rem;">Design alternatives · Compare 2&ndash;3 system directions &amp; final choice</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            <div class="alt-card"><strong>Option A: Pure Data Competitive</strong><br>Emphasizes pace/rankings, similar to traditional sports apps.<br>❌ Disadvantages: High pressure for beginners, lack of emotional stickiness. <em>Why rejected:</em> Our research shows beginners are intimidated by professional data (Fritz et al., 2014).</div>
+            <div class="alt-card"><strong>Option B: Hardcore Gamified RPG</strong><br>Complex quests, monster battles and leveling up, deviating from the essence of running.<br>❌ Disadvantages: High learning cost, deviation from sports safety. <em>Why rejected:</em> Lister et al. (2014) found story-driven emotional guidance outperforms task rewards for long-term retention.</div>
+            <div class="alt-card" style="background:#fff8ed;"><strong>✅ Option C: Companion-based Collection + Light Narrative (RunBuddy)</strong><br>✔️ Virtual companion support + safe running volume exchange for costumes + unlock real routes + bulletin board social features.<br>✔️ Integrates "deep gamification" theory with injury prevention mechanisms to protect beginners.</div>
+          </div>
+          <p style="margin-top: 12px;"><strong>Reasons for Selection：</strong> Directly addresses the lack of "deep narrative gamification" in literature, combines Sigma's campus advantages with Joyrun's route fun, fills the frustration caused by excessive competition, and makes running sustainable.</p>
+
+          <div class="pixel-subtitle" style="margin-top: 1rem;" id="lowfi">Low-fi prototype · Figma Interactive</div>
+          <div class="figma-embed-container">
+            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FS5RmVo4XnA4YQXFcMHQC9Y%2FRunBuddy-Low-Fi-Prototype%3Fnode-id%3D0-1%26t%3DKqrKdzoC3atfzUBZ-1" allowfullscreen></iframe>
+          </div>
+          <div style="text-align: center; margin-top: 1rem;">
+            <a href="https://www.figma.com/design/S5RmVo4XnA4YQXFcMHQC9Y/RunBuddy-Low-Fi-Prototype?node-id=0-1&t=KqrKdzoC3atfzUBZ-1" target="_blank" rel="noopener" class="btn-pixel">
+              🎨 Open in Figma (Full Screen)
+            </a>
+          </div>
+
+          <div class="pixel-subtitle" style="margin-top: 2.5rem;" id="highfi">High-fi prototype · Figma Interactive</div>
+          <div class="figma-embed-container">
+            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FKzAb0r3U4Qus5rZSpSun2d%2FRunBuddy-Hi-Fi-Prototype%3Fnode-id%3D0-1%26t%3DXWBVcBcMd05YW0Nr-1" allowfullscreen></iframe>
+          </div>
+          <div style="text-align: center; margin-top: 1rem;">
+            <a href="https://www.figma.com/design/KzAb0r3U4Qus5rZSpSun2d/RunBuddy-Hi-Fi-Prototype?node-id=0-1&t=XWBVcBcMd05YW0Nr-1" target="_blank" rel="noopener" class="btn-pixel">
+              🎨 Open in Figma (Full Screen)
+            </a>
+          </div>
+        </section>
+
+        <section id="technical-implementation" class="portfolio-section pixel-card" style="--section-accent: #c9854a;">
+          <h2 class="pixel-title">Technical Implementation</h2>
+          <h3 class="pixel-subtitle" style="margin-top: 0;">System architecture</h3>
+          <div class="arch-img-wrapper">
+            <img src="image/archtecture.png" alt="System Architecture Diagram" class="arch-img" onclick="this.style.maxWidth = this.style.maxWidth === '100%' ? '50%' : '100%'" title="Click to zoom in/out">
+          </div>
+          <p style="font-size:0.85rem; line-height:1.7; margin-top:12px;"><strong>Frontend:</strong> Pure HTML5 + CSS3 + Vanilla JS (ES6+) · <strong>Data:</strong> localStorage for persistent state · <strong>Maps:</strong> Leaflet.js via CDN · <strong>Typography:</strong> Google Fonts (Manrope) · <strong>Device:</strong> 393×852px (mobile-first)</p>
+          <h3 class="pixel-subtitle">High-fi prototype / hosted build</h3>
+          <p><strong>Live Demo:</strong> <a href="https://moyao-xue.github.io/RunBuddy/" style="color:#b8743f; font-weight:700;" target="_blank" rel="noopener">https://moyao-xue.github.io/RunBuddy/</a></p>
+          <h3 class="pixel-subtitle">Individual contributions</h3>
+          <table class="contrib-table">
+            <thead>
+              <tr>
+                <th scope="col">Member</th>
+                <th scope="col">Role</th>
+                <th scope="col">Specific Contributions</th>
+                <th scope="col">Tools Used</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Member A</td>
+                <td>Lead Developer</td>
+                <td>Built core system architecture (HTML/CSS/JS), implemented buddy customization system, localStorage logic, in-run encouragement features, and deployed the live web app to GitHub Pages.</td>
+                <td>Cursor AI, GitHub Copilot, GitHub Pages</td>
+              </tr>
+              <tr>
+                <td>Member B</td>
+                <td>Content & Research Lead</td>
+                <td>Conducted user interviews, synthesized research findings, wrote motivation statement and gap analysis, drafted persona descriptions, and coordinated academic paper references.</td>
+                <td>Claude 3.5 Sonnet, Perplexity AI, Google Docs</td>
+              </tr>
+              <tr>
+                <td>Member C</td>
+                <td>UI/UX Designer</td>
+                <td>Designed Low-Fi and High-Fi Figma prototypes, created visual assets and iconography, designed poster layout, and maintained design system consistency across all deliverables.</td>
+                <td>Figma, Figma AI, Midjourney, DALL-E 3</td>
+              </tr>
+              <tr>
+                <td>Member D</td>
+                <td>Testing & Documentation Lead</td>
+                <td>Conducted usability testing with 3 participants, documented iterative feedback, compiled the Process Portfolio page, and coordinated video demo production.</td>
+                <td>ChatGPT 4.0, OBS Studio, CapCut</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr style="font-size:0.8rem;">
+                <td colspan="4" style="text-align:center; padding:8px;"><strong>Collaborative Work:</strong> All members participated in Crazy Eights brainstorming, design alternative discussions, and iterative design reviews. Team decisions were made collectively through weekly meetings.</td>
+              </tr>
+            </tfoot>
+          </table>
+      
+        </section>
+        <section id="evaluation-reflection" class="portfolio-section pixel-card" style="--section-accent: #b8743f;">
+          <h2 class="pixel-title">Evaluation &amp; Reflection</h2>
+          
+          
+          <h3 class="pixel-subtitle" style="margin-top: 0;">Ethical Considerations &amp; Informed Consent</h3>
+          <div class="ethics-box" style="background:#fff8ed; border:2px solid #c9854a; border-radius:12px; padding:16px; margin-bottom:1rem;">
+            <p><strong>Research Ethics Commitment:</strong></p>
+            <ul style="margin-left:20px; font-size:0.9rem;">
+              <li><strong>Informed Consent:</strong> All participants in our user research agreed to take part in our tests.</li>
+              <li><strong>Data Privacy:</strong> Personal data collected during testing (e.g., age, running experience, health conditions) was anonymized and stored securely in compliance with GDPR principles.</li>
+              <li><strong>Inclusive Design:</strong> We designed with accessibility in mind, avoiding shame-inducing language or toxic competitive mechanics that could discourage beginners.</li>
+              <li><strong>Voluntary Participation:</strong> All participants joined voluntarily and could withdraw at any time without consequence.</li>
+            </ul>
+          </div>
+
+          <h3 class="pixel-subtitle">Requirements-Design-Function Mapping</h3>
+          <div class="mapping-table-wrapper" style="overflow-x:auto;">
+            <table class="evaluation-table mapping-table" style="width:100%; border-collapse:collapse; font-size:0.85rem; margin:12px 0;">
+              <thead>
+                <tr style="background:#dfbf97;">
+                  <th style="padding:10px; border:2px solid #dfbf97; text-align:left;">Requirement (R)</th>
+                  <th style="padding:10px; border:2px solid #dfbf97; text-align:left;">Design Goal (DG)</th>
+                  <th style="padding:10px; border:2px solid #dfbf97; text-align:left;">System Function (F)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Requirement (R)" style="padding:10px; border:1px solid #dfbf97;"><strong>R1:</strong> Virtual companion for emotional support</td>
+                  <td data-label="Design Goal (DG)" style="padding:10px; border:1px solid #dfbf97;"><strong>DG1:</strong> Create a sense of "running with a friend" through character customization and real-time companionship</td>
+                  <td data-label="System Function (F)" style="padding:10px; border:1px solid #dfbf97;"><strong>F1:</strong> Buddy Avatar System — Customize appearance, earn coins to unlock costumes, receive in-run encouragement</td>
+                </tr>
+                <tr style="background:#fff8ed;">
+                  <td data-label="Requirement (R)" style="padding:10px; border:1px solid #dfbf97;"><strong>R2:</strong> Real-time encouragement during runs</td>
+                  <td data-label="Design Goal (DG)" style="padding:10px; border:1px solid #dfbf97;"><strong>DG2:</strong> Provide dynamic, personalized feedback that adapts to user's pace and progress</td>
+                  <td data-label="System Function (F)" style="padding:10px; border:1px solid #dfbf97;"><strong>F2:</strong> In-Run Cheer System — Voice prompts, milestone celebrations, pace-adjusted encouragement</td>
+                </tr>
+                <tr>
+                  <td data-label="Requirement (R)" style="padding:10px; border:1px solid #dfbf97;"><strong>R3:</strong> Safe running volume guidance</td>
+                  <td data-label="Design Goal (DG)" style="padding:10px; border:1px solid #dfbf97;"><strong>DG3:</strong> Prevent overtraining injuries through proactive health monitoring</td>
+                  <td data-label="System Function (F)" style="padding:10px; border:1px solid #dfbf97;"><strong>F3:</strong> Run Academy + Heart Rate Warning — Tutorials for form correction + real-time HR alerts when exceeding safe zones</td>
+                </tr>
+                <tr style="background:#fff8ed;">
+                  <td data-label="Requirement (R)" style="padding:10px; border:1px solid #dfbf97;"><strong>R4:</strong> Community integration</td>
+                  <td data-label="Design Goal (DG)" style="padding:10px; border:1px solid #dfbf97;"><strong>DG4:</strong> Enable social connections without competitive pressure</td>
+                  <td data-label="System Function (F)" style="padding:10px; border:1px solid #dfbf97;"><strong>F4:</strong> Bulletin Board — Light social features, group runs, achievement sharing (non-competitive)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="pixel-subtitle">Usability Testing &amp; Iterative Refinement · From Testing to Improvement</h3>
+          
+         
+<div class="testing-box" style="background:#fff8ed; border:2px solid #b8743f; border-radius:12px; padding:16px; margin:12px 0;">
+  <h4 style="color:#b8743f; margin-top:0; margin-bottom:12px;">Phase 1: Usability Testing Methodology</h4>
+  <p>We conducted moderated usability testing with 3 participants representing our target demographic (beginner runners aged 18-35). All participants provided consent before participating in the test. Each session lasted approximately 30 minutes and included: (1) Task-based evaluation with think-aloud protocol, (2) System Usability Scale (SUS) questionnaire, and (3) Semi-structured interview for qualitative feedback.</p>
+  
+  <div style="overflow-x:auto; margin-top:16px;">
+    <table class="evaluation-table testing-table" style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <thead>
+        <tr style="background:#dfbf97;">
+          <th style="padding:8px; border:1px solid #dfbf97; text-align:left;">Participant</th>
+          <th style="padding:8px; border:1px solid #dfbf97; text-align:left;">Profile</th>
+          <th style="padding:8px; border:1px solid #dfbf97; text-align:left;">Key Tasks</th>
+          <th style="padding:8px; border:1px solid #dfbf97; text-align:left;">Findings &amp; Pain Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Participant" style="padding:8px; border:1px solid #dfbf97;"><strong>P1</strong></td>
+          <td data-label="Profile" style="padding:8px; border:1px solid #dfbf97;">Female, 22, XJTLU student, never run regularly</td>
+          <td data-label="Key Tasks" style="padding:8px; border:1px solid #dfbf97;">Set up buddy, start a run, view costume shop</td>
+          <td data-label="Findings &amp; Pain Points" style="padding:8px; border:1px solid #dfbf97;">✅ Loved the buddy concept<br>❌ <strong>Confused by multi-tab navigation</strong></td>
+        </tr>
+        <tr style="background:#fff8ed;">
+          <td data-label="Participant" style="padding:8px; border:1px solid #dfbf97;"><strong>P2</strong></td>
+          <td data-label="Profile" style="padding:8px; border:1px solid #dfbf97;">Male, 24, occasional jogger, uses Nike Run Club</td>
+          <td data-label="Key Tasks" style="padding:8px; border:1px solid #dfbf97;">Customize buddy, join community, review Run Academy</td>
+          <td data-label="Findings &amp; Pain Points" style="padding:8px; border:1px solid #dfbf97;">✅ Community features "refreshing"<br>❌ <strong>Buddy home is too complex</strong></td>
+        </tr>
+        <tr>
+          <td data-label="Participant" style="padding:8px; border:1px solid #dfbf97;"><strong>P3</strong></td>
+          <td data-label="Profile" style="padding:8px; border:1px solid #dfbf97;">Female, 28, HR staff, tried running apps before but quit</td>
+          <td data-label="Key Tasks" style="padding:8px; border:1px solid #dfbf97;">Complete onboarding, understand coins system, check HR zones</td>
+          <td data-label="Findings &amp; Pain Points" style="padding:8px; border:1px solid #dfbf97;">✅ "Companionship makes it less scary"<br>❌ <strong>Running history is unclear</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div style="margin-top:16px; padding:12px; background:#fffdf8; border:1px solid #dfbf97; border-radius:10px;">
+    <p style="margin:0;"><strong>Overall Results:</strong> Average SUS Score: <strong>71.7/100</strong> (Above average / Good). Participants appreciated the emotional design but identified navigation complexity and information hierarchy as areas for improvement. The buddy concept received unanimously positive feedback as the standout feature. This is a formative usability test intended to guide iterative design improvements.</p>
+  </div>
+</div>
+          
+          <div class="iteration-box" style="background:#fff8ed; border:2px solid #b8743f; border-radius:12px; padding:16px; margin:12px 0;">
+            <h4 style="color:#b8743f; margin-top:0; margin-bottom:12px;">Phase 2: Iterative Refinement · Each Change Driven by Testing Feedback</h4>
+            
+            
+            <div style="margin-bottom:24px; padding:16px; background:#fffdf8; border-radius:10px; border-left:5px solid #b8743f;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#b8743f; margin:0;">Iteration 1: Town Home Page → Simplified 4-Building Layout</h4>
+                <span style="background:#f5d6ae; color:#b8743f; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P1's Navigation Confusion</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P1 found too many buildings cluttered the town view and got lost navigating between tabs.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Simplified to 4 core buildings for cleaner visual hierarchy and intuitive navigation.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_nav.png" alt="Before town layout" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">Too many buildings, confusing tabs</p>
+                </div>
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_nav.png" alt="After town layout" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">4-building layout, clear hierarchy</p>
+                </div>
+              </div>
+            </div>
+
+            
+            <div style="margin-bottom:24px; padding:16px; background:#fffdf8; border-radius:10px; border-left:5px solid #b8743f;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#b8743f; margin:0;">Iteration 2: Buddy Home → At-a-Glance Dashboard</h4>
+                <span style="background:#fff8ed; color:#b8743f; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P2's Feedback</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P2 found buddy home functions required too many individual taps and lacked clear onboarding flow.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Redesigned to show all key info at a glance with progressive onboarding hints.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_onboard.png" alt="Before buddy home" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">Hidden functions, multiple taps</p>
+                </div>
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_onboard.png" alt="After buddy home" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">At-a-glance, onboarding hints</p>
+                </div>
+              </div>
+            </div>
+
+            
+            <div style="padding:16px; background:#fffdf8; border-radius:10px; border-left:5px solid #c9854a;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <h4 style="color:#b8743f; margin:0;">Iteration 3: Running Record → Simplified Summary</h4>
+                <span style="background:#efd9bd; color:#b8743f; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:600;">P3's Feedback</span>
+              </div>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Pain Point:</strong> P3 noted the running histories were unclear and difficult to interpret.</p>
+              <p style="font-size:0.85rem; margin-bottom:12px;"><strong>Solution:</strong> Redesigned with cleaner layout</p>
+              <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">❌ BEFORE (Alpha)</p>
+                  <img src="image/before_hr.png" alt="Before running record" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">Delayed HR alerts, cluttered stats</p>
+                </div>
+                <div style="flex:1; min-width:160px; text-align:center; background:#fff8ed; padding:12px; border-radius:8px;">
+                  <p style="font-weight:bold; color:#c9854a; margin:0 0 8px 0;">✅ AFTER (Beta)</p>
+                  <img src="image/after_hr.png" alt="After running record" style="width:100%; max-width:150px; border-radius:6px; border:2px solid #dfbf97;">
+                  <p style="font-size:0.75rem; margin-top:6px; color:#b8743f;">simplified running histories</p>
+                </div>
+              </div>
+            </div>
+
+            <p style="margin-top:20px; font-size:0.9rem; padding:12px; background:#fff8ed; border-radius:8px; border:1px solid #c9854a;"><strong>Iterative Design Process:</strong> Each iteration directly addressed specific pain points from usability testing. This evidence-based feedback loop transformed our Alpha prototype into an improved Beta version, ensuring every design decision was grounded in real user needs aligned with Self-Determination Theory principles.</p>
+          </div>
+          
+          <h3 class="pixel-subtitle">Design Rationale &amp; Why We Made These Choices</h3>
+          <div class="why-text">
+            <p><strong>Why Companion-based Design?</strong><br>
+            Based on Self-Determination Theory (SDT), intrinsic motivation requires satisfaction of autonomy, competence, and relatedness. Traditional running apps overemphasize competence through competitive metrics, neglecting the "relatedness" aspect. RunBuddy addresses this gap by creating an emotional bond with the virtual companion, making running feel less lonely and more like spending time with a friend.</p>
+            
+            <p style="margin-top:12px;"><strong>Why Light Gamification over Hardcore RPG?</strong><br>
+            Our literature review (Lister et al., 2014) showed that story-driven emotional guidance yields superior long-term retention compared to simple task rewards. A hardcore RPG approach would shift focus from running to game mechanics, potentially compromising sports safety. Our "light narrative" approach maintains the essence of running while providing meaningful motivation.</p>
+            
+            <p style="margin-top:12px;"><strong>Why Safe Running Volume as a Core Feature?</strong><br>
+            Existing products (Joyrun, Keep) focus on pushing users to do more. However, beginner runners face higher injury risks (Stevinson et al., 2020). Our heart rate monitoring and Run Academy directly address the gap in injury prevention, protecting users while building sustainable habits.</p>
+          </div>
+
+          <h3 class="pixel-subtitle">Final Reflection</h3>
+          <div class="reflection-box" style="background:#fff8ed; border:2px solid #c9854a; border-radius:12px; padding:16px; margin:12px 0;">
+            <h4 style="color:#b8743f; margin-bottom:12px;">Social &amp; Ethical Implications</h4>
+            <p><strong>Privacy &amp; Data Security:</strong> RunBuddy collects sensitive health data (heart rate, location, running patterns). We implemented data minimization principles—only collecting data necessary for app functionality.</p>
+            <p style="margin-top:8px;"><strong>Inclusive Design:</strong> We avoided shame-inducing language (e.g., "lazy" or "behind schedule") throughout the app. Our non-competitive social features ensure users don't feel pressured by leaderboards or rankings. The buddy character can be customized to represent diverse identities.</p>
+            <p style="margin-top:8px;"><strong>Mental Health Considerations:</strong> Running apps can sometimes exacerbate body image issues or exercise addiction. We designed gentle nudges rather than aggressive notifications, and included explicit guidance to rest when users show signs of overtraining.</p>
+            <p style="margin-top:8px;"><strong>Accessibility:</strong> We ensured screen reader compatibility, sufficient color contrast ratios, and support for users with motor impairments through touch-friendly interface design.</p>
+          </div>
+
+          <div class="reflection-box" style="background:#fff8ed; border:2px solid #b8743f; border-radius:12px; padding:16px; margin:12px 0;">
+            <h4 style="color:#b8743f; margin-bottom:12px;">Future Work &amp; Limitations</h4>
+            <ul style="margin-left:20px; font-size:0.9rem;">
+              <li><strong>Limited Testing Scope:</strong> Our usability testing involved only 3 participants from a university setting. Future work should expand testing to diverse demographics including older adults, people with disabilities, and non-English speakers.</li>
+              <li><strong>Longitudinal Study Needed:</strong> We tested immediate usability but couldn't measure long-term habit formation. A 10-week longitudinal study (following Stevinson et al., 2020 methodology) would provide stronger evidence for habit retention.</li>
+              <li><strong>AI-Powered Personalization:</strong> Future iterations could leverage machine learning for adaptive difficulty adjustment and personalized encouragement timing, while maintaining transparency about AI decision-making.</li>
+              <li><strong>Hardware Integration:</strong> Better integration with wearable devices (Garmin, Fitbit) would improve heart rate monitoring accuracy and reduce battery drain.</li>
+            </ul>
+          </div>
+        </section>
+        <section id="ai-reflection" class="portfolio-section pixel-card" style="--section-accent: #b8743f;">
+          <h2 class="pixel-title">AI Reflection</h2>
+          <div class="ai-reflection-box" style="background:#fff8ed; border:2px solid #b8743f; border-radius:12px; padding:16px; margin:12px 0;">
+            <h3 class="pixel-subtitle" style="margin-top:0;">Technical Reflection on AI Use</h3>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-bottom:16px;">
+              
+              <div style="background:#fffdf8; padding:12px; border-radius:8px; border:1px solid #dfbf97;">
+                <h5 style="color:#b8743f; margin:0 0 8px 0;">📝 Writing &amp; Research</h5>
+                <ul style="margin:0; padding-left:16px; font-size:0.85rem;">
+                  <li><strong>Claude 3.5 Sonnet:</strong> Literature search, academic paper summarization, structure feedback on writing</li>
+                  <li><strong>ChatGPT 4.0:</strong> Grammar refinement, storyboard script generation, persona description refinement</li>
+                  <li><strong>Perplexity AI:</strong> Academic source discovery and citation verification</li>
+                </ul>
+              </div>
+              
+              <div style="background:#fffdf8; padding:12px; border-radius:8px; border:1px solid #dfbf97;">
+                <h5 style="color:#b8743f; margin:0 0 8px 0;">🎨 Design &amp; Visuals</h5>
+                <ul style="margin:0; padding-left:16px; font-size:0.85rem;">
+                  <li><strong>Midjourney:</strong> Companion character concept art exploration and mood board creation</li>
+                  <li><strong>DALL-E 3:</strong> Visual concept generation for companion character designs</li>
+                  <li><strong>Figma AI:</strong> Layout suggestions and design system consistency checking</li>
+                </ul>
+              </div>
+              
+            </div>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:12px; margin-bottom:16px;">
+              <div style="background:#f5d6ae; padding:12px; border-radius:8px; border-left:4px solid #b8743f;">
+                <h5 style="color:#8c542f; margin:0 0 8px 0;">Example 1: Research Support</h5>
+                <p style="margin:0 0 8px 0; font-size:0.85rem;"><strong>P (Prompt):</strong> We asked Claude and Perplexity to find recent papers on beginner running motivation, SDT, and companionship-based gamification, then summarise the strongest evidence for our Motivation &amp; Research section.</p>
+                <p style="margin:0 0 8px 0; font-size:0.85rem;"><strong>O (Outcome):</strong> The results were useful and mostly successful, but some summaries were too compressed and a few claims were not precise enough to cite directly. The AI helped us discover sources quickly, but it was not reliable as a final academic source.</p>
+                <p style="margin:0; font-size:0.85rem;"><strong>A (Action):</strong> We checked every important claim against the original papers, discarded anything unsupported, and refined later prompts to ask for methods, page numbers, and exact citation details.</p>
+              </div>
+              <div style="background:#f5d6ae; padding:12px; border-radius:8px; border-left:4px solid #b8743f;">
+                <h5 style="color:#8c542f; margin:0 0 8px 0;">Example 2: Frontend Debugging</h5>
+                <p style="margin:0 0 8px 0; font-size:0.85rem;"><strong>P (Prompt):</strong> We asked Cursor and GitHub Copilot to help tighten the portfolio navigation, timeline spacing, and mobile layout while keeping the RunBuddy visual language consistent.</p>
+                <p style="margin:0 0 8px 0; font-size:0.85rem;"><strong>O (Outcome):</strong> The first suggestions were only partly useful. They gave us a fast starting point, but some layout changes were buggy or irrelevant and created spacing conflicts in other parts of the page.</p>
+                <p style="margin:0; font-size:0.85rem;"><strong>A (Action):</strong> We kept the helpful structural ideas, rewrote the CSS by hand, tested breakpoints in the browser, and rejected any AI suggestion that weakened readability or consistency.</p>
+              </div>
+            </div>
+            
+            <p style="margin-top:16px; font-size:0.9rem; color:#b8743f;"><strong>Overall takeaway:</strong> AI was useful for speed, ideation, and debugging, but every meaningful design and research decision was still made by the team through verification, testing, and refinement. Detailed AI usage please see: <a href="https://github.com/Moyao-Xue/RunBuddy/tree/main/ai_logs" style="color:#b8743f; font-weight:700;" target="_blank" rel="noopener">https://github.com/Moyao-Xue/RunBuddy/tree/main/ai_logs</a>.</p>
+
+            <h4 style="color:#b8743f; margin-top:20px; margin-bottom:10px;">📚 AI Tool References</h4>
+            <div style="background:#fff8ed; padding:12px; border-radius:8px; border:1px solid #efd9bd; font-size:0.8rem; line-height:1.6;">
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[1]</strong> Anthropic, Claude 3.5 Sonnet, v1.0, accessed on 2026-03-05, available at <a href="https://claude.ai" target="_blank" rel="noopener" >https://claude.ai</a>. Used for literature search assistance, academic paper summarization, structure feedback on writing, and refining user persona descriptions.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[2]</strong> OpenAI, ChatGPT 4.0, accessed on 2026-03-07, available at <a href="https://chat.openai.com" target="_blank" rel="noopener" >https://chat.openai.com</a>. Used for generating initial storyboard scripts, grammar refinement, and academic source discovery.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[3]</strong> Perplexity AI, accessed on 2026-03-12, available at <a href="https://perplexity.ai" target="_blank" rel="noopener" >https://perplexity.ai</a>. Used for academic source discovery and citation verification for research sections.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[4]</strong> Midjourney, accessed on 2026-03-18, available at <a href="https://midjourney.com" target="_blank" rel="noopener" >https://midjourney.com</a>. Used for companion character concept art exploration and mood board creation.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[5]</strong> OpenAI, DALL-E 3, accessed on 2026-03-22, available at <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener" >https://openai.com/dall-e-3</a>. Used for generating visual concepts for the companion character designs.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[6]</strong> Figma, Figma AI, accessed on 2026-03-28, available at <a href="https://figma.com" target="_blank" rel="noopener" >https://figma.com</a>. Used for layout suggestions and design system consistency checking in the prototype phase.</p>
+              
+              <p style="margin:0 0 8px 0; padding-bottom:8px; border-bottom:1px solid #efd9bd;"><strong>[7]</strong> Cursor, v0.40, accessed on 2026-04-10, available at <a href="https://cursor.com" target="_blank" rel="noopener" >https://cursor.com</a>. Used for vibe coding the RunBuddy system, real-time coding suggestions, and debugging CSS layout for mobile responsiveness.</p>
+              
+              <p style="margin:0 0 0 0;"><strong>[8]</strong> Microsoft, GitHub Copilot, accessed on 2026-04-18, available at <a href="https://github.com/features/copilot" target="_blank" rel="noopener" >https://github.com/features/copilot</a>. Used for code completion, boilerplate generation, and debugging assistance during frontend development.</p>
+            </div>
+          </div>
+        </section>
+        <section id="references" class="portfolio-section pixel-card" style="--section-accent: #b8743f;">
+          <h2 class="pixel-title">References</h2>
+          <div class="references-box">
+            <div class="reference-item">
+              <p>Şahin, M., &amp; Şener, B. (2025). Run Together: Social motivation mechanisms in running apps. <em>The International Journal of Computer Games in Healthcare</em>, 21(2), 215–244. <a href="https://doi.org/10.18848/1832-3669/CGP/v21i02/215-244" target="_blank" rel="noopener">https://doi.org/10.18848/1832-3669/CGP/v21i02/215-244</a></p>
+            </div>
+            <div class="reference-item">
+              <p>Lister, C., West, J. H., Cannon, B., Sax, T., &amp; Brodegard, D. (2014). Just a fad? Gamification in health and fitness apps. <em>Journal of Medical Internet Research</em>, 16(8), e3413. <a href="https://doi.org/10.2196/games.3413" target="_blank" rel="noopener">https://doi.org/10.2196/games.3413</a></p>
+            </div>
+            <div class="reference-item">
+              <p>Edwards, E. A., Loprinzi, P. D., &amp; Hooper, B. R. (2016). Behaviour change techniques in smartphone apps for physical activity: A systematic review. <em>BMJ Open</em>, 6(10), e012447. <a href="https://doi.org/10.1136/bmjopen-2016-012447" target="_blank" rel="noopener">https://doi.org/10.1136/bmjopen-2016-012447</a></p>
+            </div>
+            <div class="reference-item">
+              <p>Stevinson, C., Lally, P., &amp; Biddle, S. J. H. (2020). Beginner running programs: A 10-week observational study of adherence and outcomes. <em>Journal of Sports Sciences</em>, 38(17), 1923–1931. <a href="https://hdl.handle.net/2134/12932927" target="_blank" rel="noopener">https://hdl.handle.net/2134/12932927</a></p>
+            </div>
+          </div>
+        </section>
+        <footer>🏃‍♂️ RunBuddy · From Research to Prototype | Active Lifestyles Track | 2026 Pixel Style Process Portfolio</footer>
+      </div>
+
+      <section id="locations"></section>
+      <section id="map"></section>
+      <section id="villagers"></section>
+      <section id="contact"></section>
+
+      <footer id="footerStyle" class="d-flex flex-wrap flex-col justify-center align-center">
+        <div class="footer-brand d-flex justify-center align-center" style="gap:20px;">
+          <div class="last_title">RunBuddy</div>
+          <img class="logo-gif" src="image/logo2.png" alt="concernedape logo">
+        </div>
+        <div class="footer-actions d-flex flex-col justify-center align-center">
+          <a href="#hero" class="footer-backtop" aria-label="Back to top">
+            <img src="https://res.cloudinary.com/dqfgwgif9/image/upload/v1645661048/stardew-valley/up.png" alt="back to top icon">
+          </a>
+          <span class="footer-backtop-label">Back to Top</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
